@@ -1,0 +1,500 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4C1273AC1939F1360034C930 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1273AB1939F1360034C930 /* Foundation.framework */; };
+		4C1273AE1939F1360034C930 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1273AD1939F1360034C930 /* CoreGraphics.framework */; };
+		4C1273B01939F1360034C930 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1273AF1939F1360034C930 /* UIKit.framework */; };
+		4C1273B61939F1360034C930 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C1273B41939F1360034C930 /* InfoPlist.strings */; };
+		4C1273B81939F1360034C930 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1273B71939F1360034C930 /* main.m */; };
+		4C1273BC1939F1360034C930 /* QRAnalyzerAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1273BB1939F1360034C930 /* QRAnalyzerAppDelegate.m */; };
+		4C1273BF1939F1360034C930 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C1273BD1939F1360034C930 /* Main.storyboard */; };
+		4C1273C41939F1360034C930 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C1273C31939F1360034C930 /* Images.xcassets */; };
+		4C1273CB1939F1360034C930 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1273CA1939F1360034C930 /* XCTest.framework */; };
+		4C1273CC1939F1360034C930 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1273AB1939F1360034C930 /* Foundation.framework */; };
+		4C1273CD1939F1360034C930 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1273AF1939F1360034C930 /* UIKit.framework */; };
+		4C1273D51939F1360034C930 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C1273D31939F1360034C930 /* InfoPlist.strings */; };
+		4C1273D71939F1360034C930 /* QRAnalyzerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1273D61939F1360034C930 /* QRAnalyzerTests.m */; };
+		4C1273E21939F1960034C930 /* MediaCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1273E11939F1960034C930 /* MediaCaptureViewController.m */; };
+		4C1273E51939F23C0034C930 /* FocusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1273E41939F23C0034C930 /* FocusView.m */; };
+		4C1273E8193A07070034C930 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1273E7193A07070034C930 /* SettingsTableViewController.m */; };
+		4C1273EB193A092E0034C930 /* RootTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1273EA193A092E0034C930 /* RootTabBarController.m */; };
+		4C969302193BC18F00969833 /* QRDecodeResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C969301193BC18F00969833 /* QRDecodeResultViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4C1273CE1939F1360034C930 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C1273A01939F1360034C930 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C1273A71939F1360034C930;
+			remoteInfo = QRAnalyzer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4C1273A81939F1360034C930 /* QRAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QRAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C1273AB1939F1360034C930 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4C1273AD1939F1360034C930 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		4C1273AF1939F1360034C930 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		4C1273B31939F1360034C930 /* QRAnalyzer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QRAnalyzer-Info.plist"; sourceTree = "<group>"; };
+		4C1273B51939F1360034C930 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4C1273B71939F1360034C930 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4C1273B91939F1360034C930 /* QRAnalyzer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QRAnalyzer-Prefix.pch"; sourceTree = "<group>"; };
+		4C1273BA1939F1360034C930 /* QRAnalyzerAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QRAnalyzerAppDelegate.h; sourceTree = "<group>"; };
+		4C1273BB1939F1360034C930 /* QRAnalyzerAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRAnalyzerAppDelegate.m; sourceTree = "<group>"; };
+		4C1273BE1939F1360034C930 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4C1273C31939F1360034C930 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		4C1273C91939F1360034C930 /* QRAnalyzerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QRAnalyzerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C1273CA1939F1360034C930 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		4C1273D21939F1360034C930 /* QRAnalyzerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QRAnalyzerTests-Info.plist"; sourceTree = "<group>"; };
+		4C1273D41939F1360034C930 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4C1273D61939F1360034C930 /* QRAnalyzerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRAnalyzerTests.m; sourceTree = "<group>"; };
+		4C1273E01939F1960034C930 /* MediaCaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaCaptureViewController.h; sourceTree = "<group>"; };
+		4C1273E11939F1960034C930 /* MediaCaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaCaptureViewController.m; sourceTree = "<group>"; };
+		4C1273E31939F23C0034C930 /* FocusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FocusView.h; sourceTree = "<group>"; };
+		4C1273E41939F23C0034C930 /* FocusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FocusView.m; sourceTree = "<group>"; };
+		4C1273E6193A07070034C930 /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
+		4C1273E7193A07070034C930 /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
+		4C1273E9193A092E0034C930 /* RootTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootTabBarController.h; sourceTree = "<group>"; };
+		4C1273EA193A092E0034C930 /* RootTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootTabBarController.m; sourceTree = "<group>"; };
+		4C969300193BC18F00969833 /* QRDecodeResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRDecodeResultViewController.h; sourceTree = "<group>"; };
+		4C969301193BC18F00969833 /* QRDecodeResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRDecodeResultViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4C1273A51939F1360034C930 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C1273AE1939F1360034C930 /* CoreGraphics.framework in Frameworks */,
+				4C1273B01939F1360034C930 /* UIKit.framework in Frameworks */,
+				4C1273AC1939F1360034C930 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C1273C61939F1360034C930 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C1273CB1939F1360034C930 /* XCTest.framework in Frameworks */,
+				4C1273CD1939F1360034C930 /* UIKit.framework in Frameworks */,
+				4C1273CC1939F1360034C930 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4C12739F1939F1360034C930 = {
+			isa = PBXGroup;
+			children = (
+				4C1273B11939F1360034C930 /* QRAnalyzer */,
+				4C1273D01939F1360034C930 /* QRAnalyzerTests */,
+				4C1273AA1939F1360034C930 /* Frameworks */,
+				4C1273A91939F1360034C930 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4C1273A91939F1360034C930 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4C1273A81939F1360034C930 /* QRAnalyzer.app */,
+				4C1273C91939F1360034C930 /* QRAnalyzerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4C1273AA1939F1360034C930 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4C1273AB1939F1360034C930 /* Foundation.framework */,
+				4C1273AD1939F1360034C930 /* CoreGraphics.framework */,
+				4C1273AF1939F1360034C930 /* UIKit.framework */,
+				4C1273CA1939F1360034C930 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4C1273B11939F1360034C930 /* QRAnalyzer */ = {
+			isa = PBXGroup;
+			children = (
+				4C1273BD1939F1360034C930 /* Main.storyboard */,
+				4C1273E9193A092E0034C930 /* RootTabBarController.h */,
+				4C1273EA193A092E0034C930 /* RootTabBarController.m */,
+				4C1273E01939F1960034C930 /* MediaCaptureViewController.h */,
+				4C1273E11939F1960034C930 /* MediaCaptureViewController.m */,
+				4C969300193BC18F00969833 /* QRDecodeResultViewController.h */,
+				4C969301193BC18F00969833 /* QRDecodeResultViewController.m */,
+				4C1273E6193A07070034C930 /* SettingsTableViewController.h */,
+				4C1273E7193A07070034C930 /* SettingsTableViewController.m */,
+				4C1273E31939F23C0034C930 /* FocusView.h */,
+				4C1273E41939F23C0034C930 /* FocusView.m */,
+				4C1273C31939F1360034C930 /* Images.xcassets */,
+				4C1273B21939F1360034C930 /* Supporting Files */,
+			);
+			path = QRAnalyzer;
+			sourceTree = "<group>";
+		};
+		4C1273B21939F1360034C930 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4C1273BA1939F1360034C930 /* QRAnalyzerAppDelegate.h */,
+				4C1273BB1939F1360034C930 /* QRAnalyzerAppDelegate.m */,
+				4C1273B31939F1360034C930 /* QRAnalyzer-Info.plist */,
+				4C1273B41939F1360034C930 /* InfoPlist.strings */,
+				4C1273B71939F1360034C930 /* main.m */,
+				4C1273B91939F1360034C930 /* QRAnalyzer-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4C1273D01939F1360034C930 /* QRAnalyzerTests */ = {
+			isa = PBXGroup;
+			children = (
+				4C1273D61939F1360034C930 /* QRAnalyzerTests.m */,
+				4C1273D11939F1360034C930 /* Supporting Files */,
+			);
+			path = QRAnalyzerTests;
+			sourceTree = "<group>";
+		};
+		4C1273D11939F1360034C930 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4C1273D21939F1360034C930 /* QRAnalyzerTests-Info.plist */,
+				4C1273D31939F1360034C930 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4C1273A71939F1360034C930 /* QRAnalyzer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C1273DA1939F1360034C930 /* Build configuration list for PBXNativeTarget "QRAnalyzer" */;
+			buildPhases = (
+				4C1273A41939F1360034C930 /* Sources */,
+				4C1273A51939F1360034C930 /* Frameworks */,
+				4C1273A61939F1360034C930 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = QRAnalyzer;
+			productName = QRAnalyzer;
+			productReference = 4C1273A81939F1360034C930 /* QRAnalyzer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4C1273C81939F1360034C930 /* QRAnalyzerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C1273DD1939F1360034C930 /* Build configuration list for PBXNativeTarget "QRAnalyzerTests" */;
+			buildPhases = (
+				4C1273C51939F1360034C930 /* Sources */,
+				4C1273C61939F1360034C930 /* Frameworks */,
+				4C1273C71939F1360034C930 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4C1273CF1939F1360034C930 /* PBXTargetDependency */,
+			);
+			name = QRAnalyzerTests;
+			productName = QRAnalyzerTests;
+			productReference = 4C1273C91939F1360034C930 /* QRAnalyzerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4C1273A01939F1360034C930 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = QRAnalyzer;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = Michael;
+				TargetAttributes = {
+					4C1273C81939F1360034C930 = {
+						TestTargetID = 4C1273A71939F1360034C930;
+					};
+				};
+			};
+			buildConfigurationList = 4C1273A31939F1360034C930 /* Build configuration list for PBXProject "QRAnalyzer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4C12739F1939F1360034C930;
+			productRefGroup = 4C1273A91939F1360034C930 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4C1273A71939F1360034C930 /* QRAnalyzer */,
+				4C1273C81939F1360034C930 /* QRAnalyzerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4C1273A61939F1360034C930 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C1273C41939F1360034C930 /* Images.xcassets in Resources */,
+				4C1273B61939F1360034C930 /* InfoPlist.strings in Resources */,
+				4C1273BF1939F1360034C930 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C1273C71939F1360034C930 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C1273D51939F1360034C930 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4C1273A41939F1360034C930 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C1273B81939F1360034C930 /* main.m in Sources */,
+				4C1273BC1939F1360034C930 /* QRAnalyzerAppDelegate.m in Sources */,
+				4C1273E8193A07070034C930 /* SettingsTableViewController.m in Sources */,
+				4C969302193BC18F00969833 /* QRDecodeResultViewController.m in Sources */,
+				4C1273EB193A092E0034C930 /* RootTabBarController.m in Sources */,
+				4C1273E51939F23C0034C930 /* FocusView.m in Sources */,
+				4C1273E21939F1960034C930 /* MediaCaptureViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C1273C51939F1360034C930 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C1273D71939F1360034C930 /* QRAnalyzerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4C1273CF1939F1360034C930 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4C1273A71939F1360034C930 /* QRAnalyzer */;
+			targetProxy = 4C1273CE1939F1360034C930 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4C1273B41939F1360034C930 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4C1273B51939F1360034C930 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4C1273BD1939F1360034C930 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4C1273BE1939F1360034C930 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		4C1273D31939F1360034C930 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4C1273D41939F1360034C930 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4C1273D81939F1360034C930 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		4C1273D91939F1360034C930 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4C1273DB1939F1360034C930 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "QRAnalyzer/QRAnalyzer-Prefix.pch";
+				INFOPLIST_FILE = "QRAnalyzer/QRAnalyzer-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		4C1273DC1939F1360034C930 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "QRAnalyzer/QRAnalyzer-Prefix.pch";
+				INFOPLIST_FILE = "QRAnalyzer/QRAnalyzer-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		4C1273DE1939F1360034C930 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/QRAnalyzer.app/QRAnalyzer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "QRAnalyzer/QRAnalyzer-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "QRAnalyzerTests/QRAnalyzerTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		4C1273DF1939F1360034C930 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/QRAnalyzer.app/QRAnalyzer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "QRAnalyzer/QRAnalyzer-Prefix.pch";
+				INFOPLIST_FILE = "QRAnalyzerTests/QRAnalyzerTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4C1273A31939F1360034C930 /* Build configuration list for PBXProject "QRAnalyzer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C1273D81939F1360034C930 /* Debug */,
+				4C1273D91939F1360034C930 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4C1273DA1939F1360034C930 /* Build configuration list for PBXNativeTarget "QRAnalyzer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C1273DB1939F1360034C930 /* Debug */,
+				4C1273DC1939F1360034C930 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4C1273DD1939F1360034C930 /* Build configuration list for PBXNativeTarget "QRAnalyzerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C1273DE1939F1360034C930 /* Debug */,
+				4C1273DF1939F1360034C930 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4C1273A01939F1360034C930 /* Project object */;
+}
