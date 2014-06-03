@@ -37,7 +37,7 @@
 
 - (IBAction)cancel: (id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:^{
+    [self dismissViewControllerAnimated: YES completion: ^{
         [self.delegate continueSession];
     }];    
 }

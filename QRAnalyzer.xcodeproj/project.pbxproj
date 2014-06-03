@@ -25,6 +25,7 @@
 		4C1273E8193A07070034C930 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1273E7193A07070034C930 /* SettingsTableViewController.m */; };
 		4C1273EB193A092E0034C930 /* RootTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1273EA193A092E0034C930 /* RootTabBarController.m */; };
 		4C969302193BC18F00969833 /* QRDecodeResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C969301193BC18F00969833 /* QRDecodeResultViewController.m */; };
+		4C969306193E319100969833 /* RawCapturedFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C969305193E319100969833 /* RawCapturedFrame.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,8 @@
 		4C1273EA193A092E0034C930 /* RootTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootTabBarController.m; sourceTree = "<group>"; };
 		4C969300193BC18F00969833 /* QRDecodeResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRDecodeResultViewController.h; sourceTree = "<group>"; };
 		4C969301193BC18F00969833 /* QRDecodeResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRDecodeResultViewController.m; sourceTree = "<group>"; };
+		4C969304193E319100969833 /* RawCapturedFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RawCapturedFrame.h; sourceTree = "<group>"; };
+		4C969305193E319100969833 /* RawCapturedFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RawCapturedFrame.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,19 +127,12 @@
 		4C1273B11939F1360034C930 /* QRAnalyzer */ = {
 			isa = PBXGroup;
 			children = (
-				4C1273BD1939F1360034C930 /* Main.storyboard */,
-				4C1273E9193A092E0034C930 /* RootTabBarController.h */,
-				4C1273EA193A092E0034C930 /* RootTabBarController.m */,
-				4C1273E01939F1960034C930 /* MediaCaptureViewController.h */,
-				4C1273E11939F1960034C930 /* MediaCaptureViewController.m */,
-				4C969300193BC18F00969833 /* QRDecodeResultViewController.h */,
-				4C969301193BC18F00969833 /* QRDecodeResultViewController.m */,
-				4C1273E6193A07070034C930 /* SettingsTableViewController.h */,
-				4C1273E7193A07070034C930 /* SettingsTableViewController.m */,
-				4C1273E31939F23C0034C930 /* FocusView.h */,
-				4C1273E41939F23C0034C930 /* FocusView.m */,
-				4C1273C31939F1360034C930 /* Images.xcassets */,
+				4C969308193E33B900969833 /* Views */,
+				4C969307193E320A00969833 /* Controllers */,
+				4C969303193E2EEE00969833 /* DecodeEngine */,
 				4C1273B21939F1360034C930 /* Supporting Files */,
+				4C1273C31939F1360034C930 /* Images.xcassets */,
+				4C1273BD1939F1360034C930 /* Main.storyboard */,
 			);
 			path = QRAnalyzer;
 			sourceTree = "<group>";
@@ -170,6 +166,39 @@
 				4C1273D31939F1360034C930 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4C969303193E2EEE00969833 /* DecodeEngine */ = {
+			isa = PBXGroup;
+			children = (
+				4C969304193E319100969833 /* RawCapturedFrame.h */,
+				4C969305193E319100969833 /* RawCapturedFrame.m */,
+			);
+			path = DecodeEngine;
+			sourceTree = "<group>";
+		};
+		4C969307193E320A00969833 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4C1273E9193A092E0034C930 /* RootTabBarController.h */,
+				4C1273EA193A092E0034C930 /* RootTabBarController.m */,
+				4C1273E01939F1960034C930 /* MediaCaptureViewController.h */,
+				4C1273E11939F1960034C930 /* MediaCaptureViewController.m */,
+				4C969300193BC18F00969833 /* QRDecodeResultViewController.h */,
+				4C969301193BC18F00969833 /* QRDecodeResultViewController.m */,
+				4C1273E6193A07070034C930 /* SettingsTableViewController.h */,
+				4C1273E7193A07070034C930 /* SettingsTableViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		4C969308193E33B900969833 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4C1273E31939F23C0034C930 /* FocusView.h */,
+				4C1273E41939F23C0034C930 /* FocusView.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,6 +301,7 @@
 			files = (
 				4C1273B81939F1360034C930 /* main.m in Sources */,
 				4C1273BC1939F1360034C930 /* QRAnalyzerAppDelegate.m in Sources */,
+				4C969306193E319100969833 /* RawCapturedFrame.m in Sources */,
 				4C1273E8193A07070034C930 /* SettingsTableViewController.m in Sources */,
 				4C969302193BC18F00969833 /* QRDecodeResultViewController.m in Sources */,
 				4C1273EB193A092E0034C930 /* RootTabBarController.m in Sources */,
