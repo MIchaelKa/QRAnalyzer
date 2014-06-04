@@ -9,6 +9,8 @@
 #import "MediaCaptureViewController.h"
 
 #import <AVFoundation/AVFoundation.h>
+
+#import "DecodeEngine/RawCapturedFrame.h"
 #import "FocusView.h"
 
 typedef unsigned char RAW_COLOR;
@@ -19,11 +21,8 @@ typedef unsigned char RAW_COLOR;
 @property (nonatomic) AVCaptureSession *captureSession;
 @property (nonatomic) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
 
-// For storing captured frame
-@property (nonatomic, strong) NSData *captureBuffer;
-@property (nonatomic) NSUInteger captureFrameWidth;
-@property (nonatomic) NSUInteger captureFrameHeight;
-@property (nonatomic) NSUInteger captureFrameBytesPerRow;
+// For storing captured data
+@property (nonatomic, strong) RawCapturedFrame *capturedFrame;
 
 // Views
 @property (nonatomic, strong) FocusView* focusView;
@@ -35,6 +34,7 @@ typedef unsigned char RAW_COLOR;
 
 static const int PIXEL_SIZE_IN_BYTES = 4;
 static const int AREA_SIZE = 6;
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -65,6 +65,12 @@ static const int AREA_SIZE = 6;
 - (UIStatusBarStyle) preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
+}
+
+- (RawCapturedFrame *) capturedFrame
+{
+    if (!_capturedFrame) _capturedFrame = [[RawCapturedFrame alloc] init];
+    return _capturedFrame;
 }
 
 - (void) setupCaptureSession
@@ -118,15 +124,7 @@ static const int AREA_SIZE = 6;
     
     CVPixelBufferLockBaseAddress(imageBuffer, 0);
     
-    self.captureFrameBytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer);
-    self.captureFrameWidth       = CVPixelBufferGetWidth(imageBuffer);
-    self.captureFrameHeight      = CVPixelBufferGetHeight(imageBuffer);
-    
-    void *baseAddress = CVPixelBufferGetBaseAddress(imageBuffer);
-    NSUInteger sizeOfBuffer = self.captureFrameBytesPerRow * self.captureFrameHeight;
-    
-    self.captureBuffer = [NSData dataWithBytes: baseAddress
-                                        length: sizeOfBuffer];
+    [self.capturedFrame updateWithImageBuffer: imageBuffer];
     
     if ([self isRedColor]) {
         NSLog(@"RED!!!");
@@ -173,16 +171,16 @@ static const int AREA_SIZE = 6;
 - (UIColor *) colorAtCenter
 {
     return [self colorAtPoint:
-            CGPointMake((self.captureFrameWidth / 2)  - (AREA_SIZE / 2),
-                        (self.captureFrameHeight / 2) - (AREA_SIZE / 2))];
+            CGPointMake((self.capturedFrame.width / 2)  - (AREA_SIZE / 2),
+                        (self.capturedFrame.height / 2) - (AREA_SIZE / 2))];
 }
 
 
 - (UIColor *) colorAtPoint: (CGPoint) point
 {
-    RAW_COLOR *base = (RAW_COLOR *)[self.captureBuffer bytes];
+    RAW_COLOR *base = (RAW_COLOR *)[self.capturedFrame.buffer bytes];
     RAW_COLOR *pixel = base +
-    (int)round(point.y * self.captureFrameBytesPerRow) +
+    (int)round(point.y * self.capturedFrame.bytesPerRow) +
     (int)round(point.x * PIXEL_SIZE_IN_BYTES);
     
     int r = 0;
@@ -200,7 +198,7 @@ static const int AREA_SIZE = 6;
             pixel += PIXEL_SIZE_IN_BYTES;
             //NSLog(@"r = %d, g = %d, b = %d", r, g, b);
         }
-        pixel += self.captureFrameBytesPerRow - AREA_SIZE * PIXEL_SIZE_IN_BYTES;
+        pixel += self.capturedFrame.bytesPerRow - AREA_SIZE * PIXEL_SIZE_IN_BYTES;
     }
     
     return [UIColor colorWithRed: (r / (AREA_SIZE * AREA_SIZE)) / 255.0
