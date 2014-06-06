@@ -123,7 +123,7 @@ static const int AREA_SIZE = 6;
     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     
     CVPixelBufferLockBaseAddress(imageBuffer, 0);
-    
+
     [self.capturedFrame updateWithImageBuffer: imageBuffer];
     
     if ([self isRedColor]) {
@@ -133,10 +133,6 @@ static const int AREA_SIZE = 6;
             [self performSegueWithIdentifier: @"Decode result" sender: self];
         });
     }
-    
-    //    NSLog(@"Capture Output - Bytes per row: %zu", bytesPerRow);
-    //    NSLog(@"Capture Output - Width: %zu", width);
-    //    NSLog(@"Capture Output - Height: %zu", height);
     
     CVPixelBufferUnlockBaseAddress(imageBuffer, 0);
 }

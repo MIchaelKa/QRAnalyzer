@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Media Capture View Controller-->
+        <!--Media Capture View Controller - Scan-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="MediaCaptureViewController" sceneMemberID="viewController">
@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="favorites" id="lEJ-X5-MM5"/>
+                    <tabBarItem key="tabBarItem" title="Scan" image="integrated_webcam-60" id="lEJ-X5-MM5"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <segue destination="l8y-vn-coq" kind="modal" identifier="Decode result" id="0Ss-Md-a6k"/>
@@ -297,6 +297,9 @@
             <point key="canvasLocation" x="1259" y="-4"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="integrated_webcam-60" width="30" height="30"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
