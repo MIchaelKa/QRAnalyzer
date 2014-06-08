@@ -15,28 +15,15 @@
 		4C1273BC1939F1360034C930 /* QRAnalyzerAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1273BB1939F1360034C930 /* QRAnalyzerAppDelegate.m */; };
 		4C1273BF1939F1360034C930 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C1273BD1939F1360034C930 /* Main.storyboard */; };
 		4C1273C41939F1360034C930 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C1273C31939F1360034C930 /* Images.xcassets */; };
-		4C1273CB1939F1360034C930 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1273CA1939F1360034C930 /* XCTest.framework */; };
-		4C1273CC1939F1360034C930 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1273AB1939F1360034C930 /* Foundation.framework */; };
-		4C1273CD1939F1360034C930 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1273AF1939F1360034C930 /* UIKit.framework */; };
-		4C1273D51939F1360034C930 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C1273D31939F1360034C930 /* InfoPlist.strings */; };
-		4C1273D71939F1360034C930 /* QRAnalyzerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1273D61939F1360034C930 /* QRAnalyzerTests.m */; };
 		4C1273E21939F1960034C930 /* MediaCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1273E11939F1960034C930 /* MediaCaptureViewController.m */; };
 		4C1273E51939F23C0034C930 /* FocusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1273E41939F23C0034C930 /* FocusView.m */; };
 		4C1273E8193A07070034C930 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1273E7193A07070034C930 /* SettingsTableViewController.m */; };
 		4C1273EB193A092E0034C930 /* RootTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1273EA193A092E0034C930 /* RootTabBarController.m */; };
 		4C969302193BC18F00969833 /* QRDecodeResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C969301193BC18F00969833 /* QRDecodeResultViewController.m */; };
 		4C969306193E319100969833 /* RawCapturedFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C969305193E319100969833 /* RawCapturedFrame.m */; };
+		4C96934D1944E6E300969833 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C96934C1944E6E300969833 /* opencv2.framework */; };
+		4C9693501944E7B300969833 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C96934F1944E7B300969833 /* UIImage+OpenCV.mm */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		4C1273CE1939F1360034C930 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C1273A01939F1360034C930 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4C1273A71939F1360034C930;
-			remoteInfo = QRAnalyzer;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		4C1273A81939F1360034C930 /* QRAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QRAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,11 +38,7 @@
 		4C1273BB1939F1360034C930 /* QRAnalyzerAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRAnalyzerAppDelegate.m; sourceTree = "<group>"; };
 		4C1273BE1939F1360034C930 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4C1273C31939F1360034C930 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		4C1273C91939F1360034C930 /* QRAnalyzerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QRAnalyzerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C1273CA1939F1360034C930 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		4C1273D21939F1360034C930 /* QRAnalyzerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QRAnalyzerTests-Info.plist"; sourceTree = "<group>"; };
-		4C1273D41939F1360034C930 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		4C1273D61939F1360034C930 /* QRAnalyzerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRAnalyzerTests.m; sourceTree = "<group>"; };
 		4C1273E01939F1960034C930 /* MediaCaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaCaptureViewController.h; sourceTree = "<group>"; };
 		4C1273E11939F1960034C930 /* MediaCaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaCaptureViewController.m; sourceTree = "<group>"; };
 		4C1273E31939F23C0034C930 /* FocusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FocusView.h; sourceTree = "<group>"; };
@@ -68,6 +51,9 @@
 		4C969301193BC18F00969833 /* QRDecodeResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRDecodeResultViewController.m; sourceTree = "<group>"; };
 		4C969304193E319100969833 /* RawCapturedFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RawCapturedFrame.h; sourceTree = "<group>"; };
 		4C969305193E319100969833 /* RawCapturedFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RawCapturedFrame.m; sourceTree = "<group>"; };
+		4C96934C1944E6E300969833 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../OpenCV/opencv2.framework; sourceTree = "<group>"; };
+		4C96934E1944E7B300969833 /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
+		4C96934F1944E7B300969833 /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,19 +61,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C96934D1944E6E300969833 /* opencv2.framework in Frameworks */,
 				4C1273AE1939F1360034C930 /* CoreGraphics.framework in Frameworks */,
 				4C1273B01939F1360034C930 /* UIKit.framework in Frameworks */,
 				4C1273AC1939F1360034C930 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4C1273C61939F1360034C930 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4C1273CB1939F1360034C930 /* XCTest.framework in Frameworks */,
-				4C1273CD1939F1360034C930 /* UIKit.framework in Frameworks */,
-				4C1273CC1939F1360034C930 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,7 +75,6 @@
 			isa = PBXGroup;
 			children = (
 				4C1273B11939F1360034C930 /* QRAnalyzer */,
-				4C1273D01939F1360034C930 /* QRAnalyzerTests */,
 				4C1273AA1939F1360034C930 /* Frameworks */,
 				4C1273A91939F1360034C930 /* Products */,
 			);
@@ -108,7 +84,6 @@
 			isa = PBXGroup;
 			children = (
 				4C1273A81939F1360034C930 /* QRAnalyzer.app */,
-				4C1273C91939F1360034C930 /* QRAnalyzerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -116,6 +91,7 @@
 		4C1273AA1939F1360034C930 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4C96934C1944E6E300969833 /* opencv2.framework */,
 				4C1273AB1939F1360034C930 /* Foundation.framework */,
 				4C1273AD1939F1360034C930 /* CoreGraphics.framework */,
 				4C1273AF1939F1360034C930 /* UIKit.framework */,
@@ -150,29 +126,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		4C1273D01939F1360034C930 /* QRAnalyzerTests */ = {
-			isa = PBXGroup;
-			children = (
-				4C1273D61939F1360034C930 /* QRAnalyzerTests.m */,
-				4C1273D11939F1360034C930 /* Supporting Files */,
-			);
-			path = QRAnalyzerTests;
-			sourceTree = "<group>";
-		};
-		4C1273D11939F1360034C930 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				4C1273D21939F1360034C930 /* QRAnalyzerTests-Info.plist */,
-				4C1273D31939F1360034C930 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		4C969303193E2EEE00969833 /* DecodeEngine */ = {
 			isa = PBXGroup;
 			children = (
 				4C969304193E319100969833 /* RawCapturedFrame.h */,
 				4C969305193E319100969833 /* RawCapturedFrame.m */,
+				4C96934E1944E7B300969833 /* UIImage+OpenCV.h */,
+				4C96934F1944E7B300969833 /* UIImage+OpenCV.mm */,
 			);
 			path = DecodeEngine;
 			sourceTree = "<group>";
@@ -221,24 +181,6 @@
 			productReference = 4C1273A81939F1360034C930 /* QRAnalyzer.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4C1273C81939F1360034C930 /* QRAnalyzerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4C1273DD1939F1360034C930 /* Build configuration list for PBXNativeTarget "QRAnalyzerTests" */;
-			buildPhases = (
-				4C1273C51939F1360034C930 /* Sources */,
-				4C1273C61939F1360034C930 /* Frameworks */,
-				4C1273C71939F1360034C930 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4C1273CF1939F1360034C930 /* PBXTargetDependency */,
-			);
-			name = QRAnalyzerTests;
-			productName = QRAnalyzerTests;
-			productReference = 4C1273C91939F1360034C930 /* QRAnalyzerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -248,11 +190,6 @@
 				CLASSPREFIX = QRAnalyzer;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Michael;
-				TargetAttributes = {
-					4C1273C81939F1360034C930 = {
-						TestTargetID = 4C1273A71939F1360034C930;
-					};
-				};
 			};
 			buildConfigurationList = 4C1273A31939F1360034C930 /* Build configuration list for PBXProject "QRAnalyzer" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -268,7 +205,6 @@
 			projectRoot = "";
 			targets = (
 				4C1273A71939F1360034C930 /* QRAnalyzer */,
-				4C1273C81939F1360034C930 /* QRAnalyzerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -284,14 +220,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4C1273C71939F1360034C930 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4C1273D51939F1360034C930 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -303,6 +231,7 @@
 				4C1273BC1939F1360034C930 /* QRAnalyzerAppDelegate.m in Sources */,
 				4C969306193E319100969833 /* RawCapturedFrame.m in Sources */,
 				4C1273E8193A07070034C930 /* SettingsTableViewController.m in Sources */,
+				4C9693501944E7B300969833 /* UIImage+OpenCV.mm in Sources */,
 				4C969302193BC18F00969833 /* QRDecodeResultViewController.m in Sources */,
 				4C1273EB193A092E0034C930 /* RootTabBarController.m in Sources */,
 				4C1273E51939F23C0034C930 /* FocusView.m in Sources */,
@@ -310,23 +239,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4C1273C51939F1360034C930 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4C1273D71939F1360034C930 /* QRAnalyzerTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		4C1273CF1939F1360034C930 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4C1273A71939F1360034C930 /* QRAnalyzer */;
-			targetProxy = 4C1273CE1939F1360034C930 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4C1273B41939F1360034C930 /* InfoPlist.strings */ = {
@@ -343,14 +256,6 @@
 				4C1273BE1939F1360034C930 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		4C1273D31939F1360034C930 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4C1273D41939F1360034C930 /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -431,6 +336,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/Michael/Developer/OpenCV,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QRAnalyzer/QRAnalyzer-Prefix.pch";
 				INFOPLIST_FILE = "QRAnalyzer/QRAnalyzer-Info.plist";
@@ -445,52 +354,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/Michael/Developer/OpenCV,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QRAnalyzer/QRAnalyzer-Prefix.pch";
 				INFOPLIST_FILE = "QRAnalyzer/QRAnalyzer-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		4C1273DE1939F1360034C930 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/QRAnalyzer.app/QRAnalyzer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "QRAnalyzer/QRAnalyzer-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "QRAnalyzerTests/QRAnalyzerTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		4C1273DF1939F1360034C930 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/QRAnalyzer.app/QRAnalyzer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "QRAnalyzer/QRAnalyzer-Prefix.pch";
-				INFOPLIST_FILE = "QRAnalyzerTests/QRAnalyzerTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -511,15 +384,6 @@
 			buildConfigurations = (
 				4C1273DB1939F1360034C930 /* Debug */,
 				4C1273DC1939F1360034C930 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4C1273DD1939F1360034C930 /* Build configuration list for PBXNativeTarget "QRAnalyzerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4C1273DE1939F1360034C930 /* Debug */,
-				4C1273DF1939F1360034C930 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
