@@ -11,11 +11,16 @@
 #import <AVFoundation/AVFoundation.h>
 
 #import "DecodeEngine/RawVideoFrame.h"
+#import "DecodeEngine/QRCodeDetector.h"
+
 #import "FocusView.h"
 
 typedef unsigned char RAW_COLOR;
 
 @interface MediaCaptureViewController () <AVCaptureVideoDataOutputSampleBufferDelegate>
+{
+    QRCodeDetector* codeDetector;
+}
 
 // Session management.
 @property (nonatomic) AVCaptureSession *captureSession;
@@ -29,9 +34,6 @@ typedef unsigned char RAW_COLOR;
 
 
 @implementation MediaCaptureViewController
-
-static const int PIXEL_SIZE_IN_BYTES = 4;
-static const int AREA_SIZE = 6;
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -51,7 +53,14 @@ static const int AREA_SIZE = 6;
     [self setupCaptureSession];
     [self setupVeiws];
     [self setNeedsStatusBarAppearanceUpdate];
+    
+    codeDetector = new QRCodeDetector();
+}
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 - (void) setupVeiws
@@ -107,6 +116,8 @@ static const int AREA_SIZE = 6;
     [self.captureSession startRunning];
 }
 
+#pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
+
 - (void) captureOutput: (AVCaptureOutput *)captureOutput
  didOutputSampleBuffer: (CMSampleBufferRef)sampleBuffer
         fromConnection: (AVCaptureConnection *)connection
@@ -122,21 +133,15 @@ static const int AREA_SIZE = 6;
                         CVPixelBufferGetBaseAddress(imageBuffer));
     
     
-//    if ([self isRedColor]) {
-//        NSLog(@"RED!!!");
-//        dispatch_sync(dispatch_get_main_queue(), ^{
-//            [self.captureSession stopRunning];
-//            [self performSegueWithIdentifier: @"Decode result" sender: self];
-//        });
-//    }
+    if (codeDetector->detectRedColor(frame.toCVMat())) {
+        NSLog(@"RED!!!");
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [self.captureSession stopRunning];
+            [self performSegueWithIdentifier: @"Decode result" sender: self];
+        });
+    }
     
     CVPixelBufferUnlockBaseAddress(imageBuffer, 0);
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - SettingsTableViewControllerDelegate

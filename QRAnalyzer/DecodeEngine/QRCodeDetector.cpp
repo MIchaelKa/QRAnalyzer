@@ -13,7 +13,11 @@ QRCodeDetector::QRCodeDetector()
     
 }
 
-bool QRCodeDetector::isRedColorInArea()
+bool QRCodeDetector::detectRedColor(cv::Mat frame)
 {
+    cv::Mat HSVFrame;
+    cv::cvtColor(frame, HSVFrame, CV_BGR2HSV);
+    
+    
     return false;
 }

@@ -14,7 +14,7 @@ class QRCodeDetector
 public:
     QRCodeDetector();
     
-    bool isRedColorInArea();
+    bool detectRedColor(cv::Mat frame);
     
 private:
     
