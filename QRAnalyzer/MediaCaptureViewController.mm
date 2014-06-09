@@ -10,7 +10,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-#import "DecodeEngine/RawCapturedFrame.h"
+#import "DecodeEngine/RawVideoFrame.h"
 #import "FocusView.h"
 
 typedef unsigned char RAW_COLOR;
@@ -21,8 +21,6 @@ typedef unsigned char RAW_COLOR;
 @property (nonatomic) AVCaptureSession *captureSession;
 @property (nonatomic) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
 
-// For storing captured data
-@property (nonatomic, strong) RawCapturedFrame *capturedFrame;
 
 // Views
 @property (nonatomic, strong) FocusView* focusView;
@@ -65,12 +63,6 @@ static const int AREA_SIZE = 6;
 - (UIStatusBarStyle) preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
-}
-
-- (RawCapturedFrame *) capturedFrame
-{
-    if (!_capturedFrame) _capturedFrame = [[RawCapturedFrame alloc] init];
-    return _capturedFrame;
 }
 
 - (void) setupCaptureSession
@@ -124,83 +116,21 @@ static const int AREA_SIZE = 6;
     
     CVPixelBufferLockBaseAddress(imageBuffer, 0);
 
-    [self.capturedFrame updateWithImageBuffer: imageBuffer];
+    RawVideoFrame frame((int)CVPixelBufferGetWidth(imageBuffer),
+                        (int)CVPixelBufferGetHeight(imageBuffer),
+                        (int)CVPixelBufferGetBytesPerRow(imageBuffer),
+                        CVPixelBufferGetBaseAddress(imageBuffer));
     
-    if ([self isRedColor]) {
-        NSLog(@"RED!!!");
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [self.captureSession stopRunning];
-            [self performSegueWithIdentifier: @"Decode result" sender: self];
-        });
-    }
+    
+//    if ([self isRedColor]) {
+//        NSLog(@"RED!!!");
+//        dispatch_sync(dispatch_get_main_queue(), ^{
+//            [self.captureSession stopRunning];
+//            [self performSegueWithIdentifier: @"Decode result" sender: self];
+//        });
+//    }
     
     CVPixelBufferUnlockBaseAddress(imageBuffer, 0);
-}
-
-- (BOOL) isRedColor
-{
-    UIColor* currentColor = [self colorAtCenter];
-    
-    CGFloat red   = 0.0;
-    CGFloat green = 0.0;
-    CGFloat blue  = 0.0;
-    CGFloat alpha = 0.0;
-    
-    [currentColor getRed: &red
-                   green: &green
-                    blue: &blue
-                   alpha: &alpha];
-    
-    if ((red   * 250) > 160 &&
-        (green * 250) < 100 &&
-        (blue  * 250) < 100)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-    
-}
-
-- (UIColor *) colorAtCenter
-{
-    return [self colorAtPoint:
-            CGPointMake((self.capturedFrame.width / 2)  - (AREA_SIZE / 2),
-                        (self.capturedFrame.height / 2) - (AREA_SIZE / 2))];
-}
-
-
-- (UIColor *) colorAtPoint: (CGPoint) point
-{
-    RAW_COLOR *base = (RAW_COLOR *)[self.capturedFrame.buffer bytes];
-    RAW_COLOR *pixel = base +
-    (int)round(point.y * self.capturedFrame.bytesPerRow) +
-    (int)round(point.x * PIXEL_SIZE_IN_BYTES);
-    
-    int r = 0;
-    int g = 0;
-    int b = 0;
-    
-    for ( int i = 0; i < AREA_SIZE; i++)
-    {
-        for ( int j = 0; j < AREA_SIZE; j++)
-        {
-            r += pixel[2];
-            g += pixel[1];
-            b += pixel[0];
-            
-            pixel += PIXEL_SIZE_IN_BYTES;
-            //NSLog(@"r = %d, g = %d, b = %d", r, g, b);
-        }
-        pixel += self.capturedFrame.bytesPerRow - AREA_SIZE * PIXEL_SIZE_IN_BYTES;
-    }
-    
-    return [UIColor colorWithRed: (r / (AREA_SIZE * AREA_SIZE)) / 255.0
-                           green: (g / (AREA_SIZE * AREA_SIZE)) / 255.0
-                            blue: (b / (AREA_SIZE * AREA_SIZE)) / 255.0
-                           alpha: 1.0f];
 }
 
 - (void)didReceiveMemoryWarning
