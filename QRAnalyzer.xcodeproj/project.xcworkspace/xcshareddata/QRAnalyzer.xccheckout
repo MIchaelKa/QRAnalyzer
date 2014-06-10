@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>B169DF8C-0383-4AC0-9C89-EAA044DC2FBE</string>
+	<key>IDESourceControlProjectName</key>
+	<string>QRAnalyzer</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>460B9B44-9AF0-444A-A721-DA2A0F1A1426</key>
+		<string>https://github.com/MIchaelKa/QRAnalyzer.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>QRAnalyzer.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>460B9B44-9AF0-444A-A721-DA2A0F1A1426</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/MIchaelKa/QRAnalyzer.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>460B9B44-9AF0-444A-A721-DA2A0F1A1426</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>460B9B44-9AF0-444A-A721-DA2A0F1A1426</string>
+			<key>IDESourceControlWCCName</key>
+			<string>QRAnalyzer</string>
+		</dict>
+	</array>
+</dict>
+</plist>
