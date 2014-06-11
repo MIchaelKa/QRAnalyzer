@@ -7,6 +7,7 @@
 //
 
 #include "QRCodeDetector.h"
+#include <stdio.h>
 
 QRCodeDetector::QRCodeDetector()
 {
@@ -16,8 +17,20 @@ QRCodeDetector::QRCodeDetector()
 bool QRCodeDetector::detectRedColor(cv::Mat frame)
 {
     cv::Mat HSVFrame;
+    
     cv::cvtColor(frame, HSVFrame, CV_BGR2HSV);
     
+    cv::Point center(HSVFrame.cols / 2, HSVFrame.rows / 2);
+    
+    cv::Vec3b pixel = HSVFrame.at<cv::Vec3b>(center);
+    
+    uchar H = pixel[0];
+    uchar S = pixel[1];
+    uchar V = pixel[2];
+    
+    printf("H - %d, S - %d, V - %d \n", H, S, V);
+    
+    if (H > 100) return true;
     
     return false;
 }

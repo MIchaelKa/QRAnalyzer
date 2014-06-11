@@ -22,6 +22,7 @@
 		4C7C8DE919465B0A0011E542 /* RawVideoFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C7C8DE719465B0A0011E542 /* RawVideoFrame.cpp */; };
 		4C7C8DEB19465E080011E542 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7C8DEA19465E080011E542 /* AVFoundation.framework */; };
 		4C7C8DED19465E4C0011E542 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7C8DEC19465E4C0011E542 /* CoreMedia.framework */; };
+		4C7C8DF01949025F0011E542 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C7C8DEF1949025F0011E542 /* UIImage+OpenCV.mm */; };
 		4C969302193BC18F00969833 /* QRDecodeResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C969301193BC18F00969833 /* QRDecodeResultViewController.m */; };
 		4C96934D1944E6E300969833 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C96934C1944E6E300969833 /* opencv2.framework */; };
 		4C9693551946501500969833 /* QRCodeDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C9693531946501500969833 /* QRCodeDetector.cpp */; };
@@ -53,6 +54,8 @@
 		4C7C8DE819465B0A0011E542 /* RawVideoFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RawVideoFrame.h; sourceTree = "<group>"; };
 		4C7C8DEA19465E080011E542 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		4C7C8DEC19465E4C0011E542 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		4C7C8DEE1949025F0011E542 /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
+		4C7C8DEF1949025F0011E542 /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
 		4C969300193BC18F00969833 /* QRDecodeResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRDecodeResultViewController.h; sourceTree = "<group>"; };
 		4C969301193BC18F00969833 /* QRDecodeResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRDecodeResultViewController.m; sourceTree = "<group>"; };
 		4C96934C1944E6E300969833 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../OpenCV/opencv2.framework; sourceTree = "<group>"; };
@@ -141,6 +144,8 @@
 				4C7C8DE719465B0A0011E542 /* RawVideoFrame.cpp */,
 				4C9693541946501500969833 /* QRCodeDetector.h */,
 				4C9693531946501500969833 /* QRCodeDetector.cpp */,
+				4C7C8DEE1949025F0011E542 /* UIImage+OpenCV.h */,
+				4C7C8DEF1949025F0011E542 /* UIImage+OpenCV.mm */,
 			);
 			path = DecodeEngine;
 			sourceTree = "<group>";
@@ -241,6 +246,7 @@
 				4C969302193BC18F00969833 /* QRDecodeResultViewController.m in Sources */,
 				4C1273EB193A092E0034C930 /* RootTabBarController.m in Sources */,
 				4C7C8DE919465B0A0011E542 /* RawVideoFrame.cpp in Sources */,
+				4C7C8DF01949025F0011E542 /* UIImage+OpenCV.mm in Sources */,
 				4C1273E51939F23C0034C930 /* FocusView.m in Sources */,
 				4C1273E21939F1960034C930 /* MediaCaptureViewController.mm in Sources */,
 				4C9693551946501500969833 /* QRCodeDetector.cpp in Sources */,

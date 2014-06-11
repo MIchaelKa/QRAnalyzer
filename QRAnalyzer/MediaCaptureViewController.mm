@@ -12,6 +12,7 @@
 
 #import "DecodeEngine/RawVideoFrame.h"
 #import "DecodeEngine/QRCodeDetector.h"
+#import "DecodeEngine/UIImage+OpenCV.h"
 
 #import "FocusView.h"
 
@@ -26,9 +27,9 @@ typedef unsigned char RAW_COLOR;
 @property (nonatomic) AVCaptureSession *captureSession;
 @property (nonatomic) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
 
-
 // Views
 @property (nonatomic, strong) FocusView* focusView;
+@property (nonatomic, strong) UIImage* resultImage;
 
 @end
 
@@ -44,6 +45,7 @@ typedef unsigned char RAW_COLOR;
         UINavigationController* nc = segue.destinationViewController;
         QRDecodeResultViewController* drvc = [nc viewControllers][0];
         drvc.delegate = self;
+        [drvc updateResultView: self.resultImage];
     }
 }
 
@@ -132,11 +134,11 @@ typedef unsigned char RAW_COLOR;
                         (int)CVPixelBufferGetBytesPerRow(imageBuffer),
                         CVPixelBufferGetBaseAddress(imageBuffer));
     
-    
-    if (codeDetector->detectRedColor(frame.toCVMat())) {
-        NSLog(@"RED!!!");
+    cv::Mat processFrame = frame.toCVMat();
+    if (codeDetector->detectRedColor(processFrame)) {
         dispatch_sync(dispatch_get_main_queue(), ^{
             [self.captureSession stopRunning];
+            self.resultImage = [UIImage fromCVMat: processFrame];
             [self performSegueWithIdentifier: @"Decode result" sender: self];
         });
     }

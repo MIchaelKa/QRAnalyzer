@@ -20,4 +20,6 @@
 
 - (IBAction)cancel: (id)sender;
 
+- (void) updateResultView: (UIImage *) image;
+
 @end

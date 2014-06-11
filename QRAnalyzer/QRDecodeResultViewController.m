@@ -10,6 +10,9 @@
 
 @interface QRDecodeResultViewController ()
 
+@property (weak, nonatomic) IBOutlet UIScrollView *testScrollView;
+@property (strong, nonatomic) UIImageView* imageView;
+
 @end
 
 @implementation QRDecodeResultViewController
@@ -40,6 +43,26 @@
     [self dismissViewControllerAnimated: YES completion: ^{
         [self.delegate continueSession];
     }];    
+}
+
+- (void) updateResultView: (UIImage *) image
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.imageView.image = image;
+        [self.imageView sizeToFit];
+        
+        self.testScrollView.minimumZoomScale = 0.2;
+        self.testScrollView.maximumZoomScale = 2.0;
+        self.testScrollView.contentSize = image ? image.size : CGSizeZero;
+        
+        [self.testScrollView addSubview: self.imageView];
+    });
+}
+
+- (UIImageView *) imageView
+{
+    if (!_imageView) _imageView = [[UIImageView alloc] init];
+    return _imageView;
 }
 
 /*
