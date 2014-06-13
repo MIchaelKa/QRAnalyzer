@@ -71,7 +71,9 @@
                                         kCGRenderingIntentDefault);
     
     // (4) Create UIImage from CGImage
-    UIImage * finalImage = [UIImage imageWithCGImage:imageRef];
+    UIImage * finalImage = [UIImage imageWithCGImage: imageRef
+                                               scale: 1.0
+                                         orientation: UIImageOrientationRight];
     
     // (5) Release the references
     CGImageRelease(imageRef);
