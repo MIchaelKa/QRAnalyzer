@@ -22,7 +22,7 @@ bool QRCodeDetector::detectRedColor(cv::Mat frame)
     
     cv::Point center(HSVFrame.cols / 2, HSVFrame.rows / 2);
     
-    cv::Vec3b pixel = HSVFrame.at<cv::Vec3b>(center);
+    cv::Vec4b pixel = HSVFrame.at<cv::Vec4b>(center);
     
     uchar H = pixel[0];
     uchar S = pixel[1];
@@ -30,7 +30,7 @@ bool QRCodeDetector::detectRedColor(cv::Mat frame)
     
     printf("H - %d, S - %d, V - %d \n", H, S, V);
     
-    if (H > 100) return true;
+    if (H > 160 && S > 220) return true;
     
     return false;
 }

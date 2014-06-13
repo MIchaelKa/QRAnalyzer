@@ -64,7 +64,7 @@
                                         8 * cvMat.elemSize(),
                                         cvMat.step[0],
                                         colorSpace,
-                                        kCGImageAlphaNone | kCGBitmapByteOrderDefault,
+                                        kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little,
                                         provider,
                                         NULL,
                                         false,
