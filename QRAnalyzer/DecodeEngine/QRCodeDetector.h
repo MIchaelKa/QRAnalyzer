@@ -20,7 +20,7 @@ enum PixelValue
 
 #define FINDER_PATTERNS  3
 #define FINDER_SECTIONS  3
-#define MIN_COUNTUR_AREA 300
+#define MIN_COUNTUR_AREA 100 //to settings
 
 struct FinderPattern
 {
@@ -35,6 +35,7 @@ public:
     QRCodeDetector();
     
     bool detectQRCode(cv::Mat& frame);
+    void setMinimumCodeSize(int size);
     
 private:
 
@@ -51,7 +52,8 @@ private:
     cv::Mat m_frameOriginal;
     cv::Mat m_frameThreshold;
     
-    vector<cv::RotatedRect> m_finderPatternRects;    
+    vector<cv::RotatedRect> m_finderPatternRects;
+    vector<FinderPattern>   m_finderPatterns;
 };
 
 #endif /* defined(__QRAnalyzer__QRCodeDetector__) */

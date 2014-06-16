@@ -34,10 +34,6 @@ bool QRCodeDetector::identifyFinderPatterns(cv::Mat& mat)
     //Find the contours of finder patterns 
     vector<vector<cv::Point>> contours;
     vector<vector<cv::Point>> targetContours;
-
-    vector<cv::RotatedRect>   finderPatternRects;
-    
-    vector<FinderPattern> finderPatterns;
     
     cv::Mat contourOutput = mat.clone();
     cv::findContours(contourOutput, contours, CV_RETR_LIST, CV_CHAIN_APPROX_NONE );
