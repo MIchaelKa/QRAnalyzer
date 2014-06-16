@@ -135,7 +135,8 @@ typedef unsigned char RAW_COLOR;
                         CVPixelBufferGetBaseAddress(imageBuffer));
     
     cv::Mat processFrame = frame.toCVMat();
-    if (codeDetector->detectRedColor(processFrame)) {
+    
+    if (codeDetector->detectQRCode(processFrame)) {
         dispatch_sync(dispatch_get_main_queue(), ^{
             [self.captureSession stopRunning];
             self.resultImage = [UIImage fromCVMat: processFrame];

@@ -64,16 +64,15 @@
                                         8 * cvMat.elemSize(),
                                         cvMat.step[0],
                                         colorSpace,
-                                        kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little,
+                                        //kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little,
+                                        kCGImageAlphaNone | kCGBitmapByteOrderDefault,
                                         provider,
                                         NULL,
                                         false,
                                         kCGRenderingIntentDefault);
     
     // (4) Create UIImage from CGImage
-    UIImage * finalImage = [UIImage imageWithCGImage: imageRef
-                                               scale: 1.0
-                                         orientation: UIImageOrientationRight];
+    UIImage * finalImage = [UIImage imageWithCGImage: imageRef];
     
     // (5) Release the references
     CGImageRelease(imageRef);
