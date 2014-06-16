@@ -26,10 +26,10 @@ bool QRCodeDetector::detectQRCode(cv::Mat& frame)
     cv::cvtColor(frame, frameGrayScale, CV_BGR2GRAY);
     cv::threshold(frameGrayScale, frameThreshold, 150, WHITE_PIXEL, CV_THRESH_BINARY);
     
-    return findQRCodePosition(frameThreshold);
+    return identifyFinderPatterns(frameThreshold);
 }
 
-bool QRCodeDetector::findQRCodePosition(cv::Mat& mat)
+bool QRCodeDetector::identifyFinderPatterns(cv::Mat& mat)
 {
     //Find the contours of finder patterns 
     vector<vector<cv::Point>> contours;
@@ -104,8 +104,7 @@ bool QRCodeDetector::findQRCodePosition(cv::Mat& mat)
         for( int j = 0; j < 4; j++ ) {
             cv::line(m_frameOriginal, rect_points[j], rect_points[(j+1)%4], colors[idx % 3]);
         }
-    }
-    
+    }    
     
     return true;
 }
@@ -149,116 +148,4 @@ bool QRCodeDetector::rectIsContainInnerRect(cv::RotatedRect& externalRect,
         }
     }
     return false;
-}
-
-
-bool QRCodeDetector::identifyFinderPatterns(cv::Mat& mat)
-{
-    int pixelCount[NUMBER_OF_SECTION] = { 0 };
-    int currentSection = 0;
-    PixelValue currentValue = BLACK_PIXEL;
-    int i = 0;
-    int matchedLines = 0;
-    cv::Point scanLine [2];
-    
-    for (int k = 0; k < mat.rows; k++)
-    {
-        while (mat.at<uchar>(k, i) != BLACK_PIXEL && i < mat.cols) i++;
-        scanLine[0] = cv::Point(k, i);
-        for ( ; i < mat.cols; i++)
-        {
-            uchar value = mat.at<uchar>(k, i);
-            
-            if (value != currentValue)
-            {
-                if (currentSection == 1) scanLine[1] = cv::Point(k, i);
-                if (currentSection < NUMBER_OF_SECTION - 1)
-                {
-                    currentValue = invertPixelValue(currentValue);
-                    currentSection++;
-                }
-                else
-                {
-                    if (checkRatio(pixelCount))
-                    {
-                        scanLine[1] = cv::Point(k, i);
-                        for (int j = scanLine[0].y; j < scanLine[1].y; j++)
-                        {
-                            //mat.at<uchar>(scanLine[0].x, j) = 150;
-                            
-                        }
-                        matchedLines++;
-                        printf("%d) - %d %d %d %d %d\n",
-                               matchedLines, pixelCount[0], pixelCount[1], pixelCount[2], pixelCount[3], pixelCount[4]);
-                        
-                        while (mat.at<uchar>(k, i) != BLACK_PIXEL && i < mat.cols) i++;
-                        currentSection = 0;
-                        currentValue = BLACK_PIXEL;
-                        pixelCount[0] = 0;
-                        pixelCount[1] = 0;
-                        pixelCount[2] = 0;
-                        pixelCount[3] = 0;
-                        pixelCount[4] = 0;
-                    }
-                    else
-                    {
-                        scanLine[0] = scanLine[1];
-                        pixelCount[0] = pixelCount[2];
-                        pixelCount[1] = pixelCount[3];
-                        pixelCount[2] = pixelCount[4];
-                        pixelCount[3] = 0;
-                        pixelCount[4] = 0;
-                        currentSection = 3;
-                    }
-                }
-            }
-            pixelCount[currentSection]++;
-        }
-        i = 0;
-        currentSection = 0;        
-        currentValue = BLACK_PIXEL;
-        pixelCount[0] = 0;
-        pixelCount[1] = 0;
-        pixelCount[2] = 0;
-        pixelCount[3] = 0;
-        pixelCount[4] = 0;
-    }
-    
-    if (matchedLines >= 20) return true;
-    
-    return false;
-}
-
-bool QRCodeDetector::checkRatio(int pixelCount[])
-{
-    int totalCount = 0;
-    for (int i = 0; i < NUMBER_OF_SECTION; i++)
-    {
-        if (pixelCount[i] < 2) return false;
-        totalCount += pixelCount[i];
-    }
-    
-    if (totalCount < 7) return false;
-    
-    int sectionSize = totalCount / 7;
-    int variance = sectionSize / 2;
-    
-    bool retVal = ((abs(sectionSize     - (pixelCount[0])) < variance) &&
-                   (abs(sectionSize     - (pixelCount[1])) < variance) &&
-                   (abs(3 * sectionSize - (pixelCount[2])) < variance) &&
-                   (abs(sectionSize     - (pixelCount[3])) < variance) &&
-                   (abs(sectionSize     - (pixelCount[4])) < variance));
-    
-    return retVal;
-}
-
-void QRCodeDetector::clearPixelCount()
-{
-
-}
-
-PixelValue QRCodeDetector::invertPixelValue(PixelValue value)
-{
-    if (value == WHITE_PIXEL) return BLACK_PIXEL;
-    else return WHITE_PIXEL;
 }
