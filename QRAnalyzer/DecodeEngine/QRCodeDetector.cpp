@@ -58,6 +58,7 @@ bool QRCodeDetector::identifyFinderPatterns(cv::Mat& mat)
     }
     
     m_finderPatternRects.clear();
+    m_finderPatterns.clear();
     
     for (int i = 0; i < targetContours.size(); i++)
     {
@@ -76,32 +77,57 @@ bool QRCodeDetector::identifyFinderPatterns(cv::Mat& mat)
         }
     }
     
-    printf("%d\n", (int)m_finderPatternRects.size());
-    
     if (m_finderPatternRects.size() < FINDER_PATTERNS * FINDER_SECTIONS)
     {
         return false;
-    } 
-    
-    
-    //Draw the contours
-    cv::Scalar colors[3];
-    colors[0] = cv::Scalar(255, 0, 0);
-    colors[1] = cv::Scalar(0, 255, 0);
-    colors[2] = cv::Scalar(0, 0, 255);
-    
-//    for (int idx = 0; idx < targetContours.size(); idx++) {
-//        cv::drawContours(m_frameOriginal, targetContours, idx, colors[idx % 3]);
-//    }
-    
-    for (int idx = 0; idx < m_finderPatternRects.size(); idx++) {
-        cv::Point2f rect_points[4];
-        m_finderPatternRects[idx].points(rect_points);
-        for( int j = 0; j < 4; j++ ) {
-            cv::line(m_frameOriginal, rect_points[j], rect_points[(j+1)%4], colors[idx % 3]);
+    }
+   
+    for (int k = 0; k < FINDER_PATTERNS; k++)
+    {
+        FinderPattern finderPattern;
+        finderPattern.externalRect = m_finderPatternRects.back();
+        m_finderPatternRects.pop_back();
+        
+        for (int i = 0; i < m_finderPatternRects.size(); i++)
+        {
+            cv::RotatedRect rect = m_finderPatternRects[i];
+            if (rectsAtTheSameCenter(finderPattern.externalRect, rect))
+            {
+                addToFinderPattern(finderPattern, rect);
+                m_finderPatternRects.erase(m_finderPatternRects.begin() + i);
+                i--;
+            }
         }
-    }    
+        m_finderPatterns.push_back(finderPattern);
+    }
     
+    showFinderPatterns();  
+    
+    return true;
+}
+
+bool QRCodeDetector::addToFinderPattern(FinderPattern& finderPattern,
+                                        cv::RotatedRect& rect)
+{
+    int externalRectSize = finderPattern.externalRect.size.width;
+    int middleRectSize   = finderPattern.middleRect.size.width;
+    
+    int addedRectSize    = rect.size.width;
+    
+    if (externalRectSize < addedRectSize)
+    {
+        finderPattern.innerRect    = finderPattern.middleRect;
+        finderPattern.middleRect   = finderPattern.externalRect;
+        finderPattern.externalRect = rect;
+        return true;
+    }
+    if (middleRectSize < addedRectSize)
+    {
+        finderPattern.innerRect    = finderPattern.middleRect;
+        finderPattern.middleRect = rect;
+        return true;
+    }
+    finderPattern.innerRect = rect;
     return true;
 }
 
@@ -112,6 +138,18 @@ void QRCodeDetector::addNewFinderPatternRect(cv::RotatedRect& rect)
             return;
     }
     m_finderPatternRects.push_back(rect);
+}
+
+bool QRCodeDetector::rectsAtTheSameCenter(cv::RotatedRect& firstRect,
+                                          cv::RotatedRect& secondRect)
+{
+    int variance = 4;
+    if (abs(firstRect.center.x - secondRect.center.x) < variance &&
+        abs(firstRect.center.y - secondRect.center.y) < variance)
+    {
+        return true;
+    }
+    return false;
 }
 
 bool QRCodeDetector::rectsIsEqual(cv::RotatedRect& firstRect,
@@ -144,4 +182,28 @@ bool QRCodeDetector::rectIsContainInnerRect(cv::RotatedRect& externalRect,
         }
     }
     return false;
+}
+
+void QRCodeDetector::showFinderPatterns()
+{
+    cv::Scalar colors[3];
+    colors[0] = cv::Scalar(255, 0, 0);
+    colors[1] = cv::Scalar(0, 255, 0);
+    colors[2] = cv::Scalar(0, 0, 255);
+
+    for (int k = 0; k < FINDER_PATTERNS; k++)
+    {
+        showRotatedRect(m_finderPatterns[k].externalRect, colors[k]);
+        showRotatedRect(m_finderPatterns[k].middleRect,   colors[k]);
+        showRotatedRect(m_finderPatterns[k].innerRect,    colors[k]);
+    }
+}
+
+void QRCodeDetector::showRotatedRect(cv::RotatedRect rotatedRect, cv::Scalar color)
+{
+    cv::Point2f rect_points[4];
+    rotatedRect.points(rect_points);
+    for( int j = 0; j < 4; j++ ) {
+        cv::line(m_frameOriginal, rect_points[j], rect_points[(j+1)%4], color);
+    }
 }

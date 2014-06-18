@@ -41,11 +41,18 @@ private:
 
     //methods
     bool identifyFinderPatterns(cv::Mat& mat);
+    bool addToFinderPattern(FinderPattern& finderPattern,
+                            cv::RotatedRect& rect);
     void addNewFinderPatternRect(cv::RotatedRect& rect);
     bool rectIsContainInnerRect(cv::RotatedRect& externalRect,
                                 cv::RotatedRect& innerRect);
     bool rectsIsEqual(cv::RotatedRect& firstRect,
                       cv::RotatedRect& secondRect);
+    bool rectsAtTheSameCenter(cv::RotatedRect& firstRect,
+                              cv::RotatedRect& secondRect);
+    
+    void showFinderPatterns();
+    void showRotatedRect(cv::RotatedRect rotatedRect, cv::Scalar color);
 
     
     //variables
