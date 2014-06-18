@@ -29,6 +29,13 @@ struct FinderPattern
     cv::RotatedRect innerRect;
 };
 
+enum FinderPatternRatio
+{
+    EXTERNAL_RECT_RATIO = 7,
+    MIDDLE_RECT_RATIO   = 5,
+    INNER_RECT_RATIO    = 3
+};
+
 class QRCodeDetector
 {
 public:
@@ -44,6 +51,7 @@ private:
     bool addToFinderPattern(FinderPattern& finderPattern,
                             cv::RotatedRect& rect);
     void addNewFinderPatternRect(cv::RotatedRect& rect);
+    bool checkRatio();
     bool rectIsContainInnerRect(cv::RotatedRect& externalRect,
                                 cv::RotatedRect& innerRect);
     bool rectsIsEqual(cv::RotatedRect& firstRect,
@@ -61,6 +69,8 @@ private:
     
     vector<cv::RotatedRect> m_finderPatternRects;
     vector<FinderPattern>   m_finderPatterns;
+    
+    int m_gridStep;
 };
 
 #endif /* defined(__QRAnalyzer__QRCodeDetector__) */

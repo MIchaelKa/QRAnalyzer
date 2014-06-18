@@ -13,7 +13,7 @@
 
 QRCodeDetector::QRCodeDetector()
 {
-    
+    m_gridStep = 0;
 }
 
 bool QRCodeDetector::detectQRCode(cv::Mat& frame)
@@ -101,6 +101,11 @@ bool QRCodeDetector::identifyFinderPatterns(cv::Mat& mat)
         m_finderPatterns.push_back(finderPattern);
     }
     
+    if (!checkRatio())
+    {
+        return false;
+    }
+    
     showFinderPatterns();  
     
     return true;
@@ -138,6 +143,37 @@ void QRCodeDetector::addNewFinderPatternRect(cv::RotatedRect& rect)
             return;
     }
     m_finderPatternRects.push_back(rect);
+}
+
+bool QRCodeDetector::checkRatio()
+{
+    int variance = m_finderPatterns[0].externalRect.size.width / 50;
+    
+    for (int k = 0; k < FINDER_PATTERNS; k++)
+    {
+        int externalRectSize = m_finderPatterns[k].externalRect.size.width;
+        int middleRectSize   = m_finderPatterns[k].middleRect.size.width;
+        int innerRectSize    = m_finderPatterns[k].innerRect.size.width;
+        
+        int externalRatio = externalRectSize / EXTERNAL_RECT_RATIO;
+        int middleRatio   = middleRectSize   / MIDDLE_RECT_RATIO;
+        int innerRatio    = innerRectSize    / INNER_RECT_RATIO;
+        
+        if (abs(externalRatio - middleRatio) > variance ||
+            abs(externalRatio - innerRatio)  > variance ||
+            abs(middleRatio   - innerRatio)  > variance)
+        {
+            return false;
+        }
+        
+//        if (m_gridStep != 0 && abs(m_gridStep - externalRatio) > variance)
+//        {
+//            return false;
+//        }
+        
+        m_gridStep = externalRatio;
+    }
+    return true;
 }
 
 bool QRCodeDetector::rectsAtTheSameCenter(cv::RotatedRect& firstRect,
@@ -206,4 +242,11 @@ void QRCodeDetector::showRotatedRect(cv::RotatedRect rotatedRect, cv::Scalar col
     for( int j = 0; j < 4; j++ ) {
         cv::line(m_frameOriginal, rect_points[j], rect_points[(j+1)%4], color);
     }
+    
+    int rectPointX = rect_points[0].x;
+    int rectPointY = rect_points[0].y;
+    
+    m_frameOriginal.at<cv::Vec4b>(rectPointY, rectPointX)[0] = 255;
+    m_frameOriginal.at<cv::Vec4b>(rectPointY, rectPointX)[1] = 255;
+    m_frameOriginal.at<cv::Vec4b>(rectPointY, rectPointX)[2] = 255;
 }
