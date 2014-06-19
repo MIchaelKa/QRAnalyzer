@@ -46,12 +46,16 @@ public:
     
 private:
 
-    //methods
+    // methods
     bool identifyFinderPatterns(cv::Mat& mat);
     bool addToFinderPattern(FinderPattern& finderPattern,
                             cv::RotatedRect& rect);
     void addNewFinderPatternRect(cv::RotatedRect& rect);
     bool checkRatio();
+    bool checkSize();
+    bool checkBasisPoints();
+    void fillQRMatrix();
+    // to FinderPatternRect
     bool rectIsContainInnerRect(cv::RotatedRect& externalRect,
                                 cv::RotatedRect& innerRect);
     bool rectsIsEqual(cv::RotatedRect& firstRect,
@@ -59,18 +63,41 @@ private:
     bool rectsAtTheSameCenter(cv::RotatedRect& firstRect,
                               cv::RotatedRect& secondRect);
     
+    // basis points
+    cv::Point2f getULBasisPoint();
+    void        correctULBasisPoint();
+    
+    cv::Point2f getURBasisPoint();
+    void        correctURBasisPoint();
+    
+    cv::Point2f getBLBasisPoint();
+    
+    // debug methods
     void showFinderPatterns();
     void showRotatedRect(cv::RotatedRect rotatedRect, cv::Scalar color);
+    void showPoint(cv::Point2f point);
+    void showGrid();
+    void printQRMatrix();
 
     
-    //variables
+    // variables
     cv::Mat m_frameOriginal;
     cv::Mat m_frameThreshold;
     
     vector<cv::RotatedRect> m_finderPatternRects;
     vector<FinderPattern>   m_finderPatterns;
     
+    cv::Point2f m_ULBasisPoint;
+    cv::Point2f m_URBasisPoint;
+    cv::Point2f m_BLBasisPoint;
+    
     int m_gridStep;
+
+    int   m_QRMatrixHeight;
+    int   m_QRMatrixWidth;
+    int** m_QRMatrix;
+
+    
 };
 
 #endif /* defined(__QRAnalyzer__QRCodeDetector__) */
