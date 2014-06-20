@@ -10,7 +10,6 @@
 #include <stdio.h>
 
 
-
 QRCodeDetector::QRCodeDetector()
 {
     m_gridStep = 0;

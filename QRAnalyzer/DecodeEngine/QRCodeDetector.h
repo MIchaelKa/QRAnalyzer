@@ -14,19 +14,6 @@
 
 using namespace std;
 
-
-
-#define FINDER_PATTERNS  3
-#define FINDER_SECTIONS  3
-#define MIN_COUNTUR_AREA 100 //to settings
-
-struct FinderPattern
-{
-    cv::RotatedRect externalRect;
-    cv::RotatedRect middleRect;
-    cv::RotatedRect innerRect;
-};
-
 class QRCodeDetector
 {
 public:

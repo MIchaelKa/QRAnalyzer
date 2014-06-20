@@ -27,6 +27,7 @@
 		4C96934D1944E6E300969833 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C96934C1944E6E300969833 /* opencv2.framework */; };
 		4C9693551946501500969833 /* QRCodeDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C9693531946501500969833 /* QRCodeDetector.cpp */; };
 		4C9BEA0019537B4700656694 /* CorrectFinderPattern.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C9BE9FE19537B4700656694 /* CorrectFinderPattern.cpp */; };
+		4C9BEA041954D87200656694 /* QRMatrixDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C9BEA021954D87200656694 /* QRMatrixDecoder.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,8 @@
 		4C9BE9FE19537B4700656694 /* CorrectFinderPattern.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CorrectFinderPattern.cpp; sourceTree = "<group>"; };
 		4C9BE9FF19537B4700656694 /* CorrectFinderPattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorrectFinderPattern.h; sourceTree = "<group>"; };
 		4C9BEA01195380F200656694 /* DecodeEngineDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecodeEngineDefines.h; sourceTree = "<group>"; };
+		4C9BEA021954D87200656694 /* QRMatrixDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QRMatrixDecoder.cpp; sourceTree = "<group>"; };
+		4C9BEA031954D87200656694 /* QRMatrixDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRMatrixDecoder.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +154,8 @@
 				4C9BE9FE19537B4700656694 /* CorrectFinderPattern.cpp */,
 				4C9693541946501500969833 /* QRCodeDetector.h */,
 				4C9693531946501500969833 /* QRCodeDetector.cpp */,
+				4C9BEA031954D87200656694 /* QRMatrixDecoder.h */,
+				4C9BEA021954D87200656694 /* QRMatrixDecoder.cpp */,
 				4C7C8DEE1949025F0011E542 /* UIImage+OpenCV.h */,
 				4C7C8DEF1949025F0011E542 /* UIImage+OpenCV.mm */,
 			);
@@ -258,6 +263,7 @@
 				4C969302193BC18F00969833 /* QRDecodeResultViewController.m in Sources */,
 				4C1273EB193A092E0034C930 /* RootTabBarController.m in Sources */,
 				4C9BEA0019537B4700656694 /* CorrectFinderPattern.cpp in Sources */,
+				4C9BEA041954D87200656694 /* QRMatrixDecoder.cpp in Sources */,
 				4C7C8DE919465B0A0011E542 /* RawVideoFrame.cpp in Sources */,
 				4C7C8DF01949025F0011E542 /* UIImage+OpenCV.mm in Sources */,
 				4C1273E51939F23C0034C930 /* FocusView.m in Sources */,

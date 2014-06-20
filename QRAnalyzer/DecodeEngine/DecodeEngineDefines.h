@@ -9,6 +9,11 @@
 #ifndef QRAnalyzer_DecodeEngineDefines_h
 #define QRAnalyzer_DecodeEngineDefines_h
 
+
+#define FINDER_PATTERNS  3
+#define FINDER_SECTIONS  3
+#define MIN_COUNTUR_AREA 100 //to settings
+
 enum PixelValue
 {
     BLACK_PIXEL = 0,
@@ -21,6 +26,13 @@ enum FinderPatternRatio
     EXTERNAL_RECT_RATIO = 7,
     MIDDLE_RECT_RATIO   = 5,
     INNER_RECT_RATIO    = 3
+};
+
+struct FinderPattern
+{
+    cv::RotatedRect externalRect;
+    cv::RotatedRect middleRect;
+    cv::RotatedRect innerRect;
 };
 
 #endif
