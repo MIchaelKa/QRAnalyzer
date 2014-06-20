@@ -9,14 +9,12 @@
 #ifndef __QRAnalyzer__QRCodeDetector__
 #define __QRAnalyzer__QRCodeDetector__
 
+#include "CorrectFinderPattern.h"
+#include "DecodeEngineDefines.h"
+
 using namespace std;
 
-enum PixelValue
-{
-    BLACK_PIXEL = 0,
-    WHITE_PIXEL = 250,
-    INVALID_PIXEL = -1
-};
+
 
 #define FINDER_PATTERNS  3
 #define FINDER_SECTIONS  3
@@ -27,13 +25,6 @@ struct FinderPattern
     cv::RotatedRect externalRect;
     cv::RotatedRect middleRect;
     cv::RotatedRect innerRect;
-};
-
-enum FinderPatternRatio
-{
-    EXTERNAL_RECT_RATIO = 7,
-    MIDDLE_RECT_RATIO   = 5,
-    INNER_RECT_RATIO    = 3
 };
 
 class QRCodeDetector
@@ -48,13 +39,17 @@ private:
 
     // methods
     bool identifyFinderPatterns(cv::Mat& mat);
+    
     bool addToFinderPattern(FinderPattern& finderPattern,
                             cv::RotatedRect& rect);
     void addNewFinderPatternRect(cv::RotatedRect& rect);
+    
+    void correctFinderPatterns();
     bool checkRatio();
     bool checkSize();
     bool checkBasisPoints();
     void fillQRMatrix();
+    
     // to FinderPatternRect
     bool rectIsContainInnerRect(cv::RotatedRect& externalRect,
                                 cv::RotatedRect& innerRect);
@@ -65,17 +60,14 @@ private:
     
     // basis points
     cv::Point2f getULBasisPoint();
-    void        correctULBasisPoint();
-    
-    cv::Point2f getURBasisPoint();
-    void        correctURBasisPoint();
-    
+    cv::Point2f getURBasisPoint();    
     cv::Point2f getBLBasisPoint();
     
     // debug methods
     void showFinderPatterns();
+    void showCorrectFinderPatterns();
     void showRotatedRect(cv::RotatedRect rotatedRect, cv::Scalar color);
-    void showPoint(cv::Point2f point);
+    void showPoint(cv::Point2f point, cv::Scalar color);
     void showGrid();
     void printQRMatrix();
 
@@ -91,12 +83,15 @@ private:
     cv::Point2f m_URBasisPoint;
     cv::Point2f m_BLBasisPoint;
     
+    CorrectFinderPattern m_ULFinderPattern;
+    CorrectFinderPattern m_URFinderPattern;
+    CorrectFinderPattern m_BLFinderPattern;
+    
     int m_gridStep;
 
     int   m_QRMatrixHeight;
     int   m_QRMatrixWidth;
     int** m_QRMatrix;
-
     
 };
 

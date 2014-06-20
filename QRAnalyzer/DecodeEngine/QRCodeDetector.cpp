@@ -105,6 +105,8 @@ bool QRCodeDetector::identifyFinderPatterns(cv::Mat& mat)
         m_finderPatterns.push_back(finderPattern);
     }
     
+    correctFinderPatterns();
+    
     if (!checkRatio())
     {
         printf("NO finderPatterns RATIO\n");
@@ -123,21 +125,24 @@ bool QRCodeDetector::identifyFinderPatterns(cv::Mat& mat)
     m_URBasisPoint = getURBasisPoint();
     m_BLBasisPoint = getBLBasisPoint();
     
-    correctULBasisPoint();
-    correctURBasisPoint();
-    
-    showPoint(m_URBasisPoint);
-    
-    m_QRMatrixHeight = (m_BLBasisPoint.y - m_ULBasisPoint.y) / m_gridStep;
-    m_QRMatrixWidth  = (m_URBasisPoint.x - m_ULBasisPoint.x) / m_gridStep;
-    
     if (!checkBasisPoints())
     {
         printf("NO finderPatterns POINTS\n");
         return false;
     }
     
+    printf("%d - %d - %d - %d\n", m_ULFinderPattern.getStep(),
+                                  m_URFinderPattern.getStep(),
+                                  m_BLFinderPattern.getStep(),
+                                  m_gridStep);
+    
+    //m_gridStep = m_ULFinderPattern.getStep();
+    
+    m_QRMatrixHeight = (m_BLBasisPoint.y - m_ULBasisPoint.y) / m_gridStep;
+    m_QRMatrixWidth  = (m_URBasisPoint.x - m_ULBasisPoint.x) / m_gridStep;
+    
     showGrid();
+    showCorrectFinderPatterns();
     
     fillQRMatrix();
     printQRMatrix();
@@ -180,6 +185,66 @@ void QRCodeDetector::addNewFinderPatternRect(cv::RotatedRect& rect)
     m_finderPatternRects.push_back(rect);
 }
 
+void QRCodeDetector::correctFinderPatterns()
+{
+    // UL
+    int centerX = m_finderPatterns[0].externalRect.center.x;
+    int centerY = m_finderPatterns[0].externalRect.center.y;
+    
+    FinderPattern UL = m_finderPatterns[0];
+    
+    for (int k = 1; k < FINDER_PATTERNS; k++)
+    {
+        if (m_finderPatterns[k].externalRect.center.x < centerX &&
+            m_finderPatterns[k].externalRect.center.y < centerY)
+        {
+            UL = m_finderPatterns[k];
+            centerX = m_finderPatterns[k].externalRect.center.x;
+            centerY = m_finderPatterns[k].externalRect.center.y;
+        }
+    }
+    
+    m_ULFinderPattern.setCVMat(m_frameThreshold);
+    m_ULFinderPattern.initWithRotatedRect(UL.externalRect);
+    m_ULFinderPattern.correctPoints();
+    
+    //UR
+    centerX = m_finderPatterns[0].externalRect.center.x;
+    
+    FinderPattern UR = m_finderPatterns[0];
+    
+    for (int k = 1; k < FINDER_PATTERNS; k++)
+    {
+        if (m_finderPatterns[k].externalRect.center.x > centerX)
+        {
+            UR = m_finderPatterns[k];
+            centerX = m_finderPatterns[k].externalRect.center.x;
+        }
+    }
+    
+    m_URFinderPattern.setCVMat(m_frameThreshold);
+    m_URFinderPattern.initWithRotatedRect(UR.externalRect);
+    m_URFinderPattern.correctPoints();
+    
+    // BL
+    centerY = m_finderPatterns[0].externalRect.center.y;
+    
+    FinderPattern BL = m_finderPatterns[0];
+    
+    for (int k = 1; k < FINDER_PATTERNS; k++)
+    {
+        if (m_finderPatterns[k].externalRect.center.y > centerY)
+        {
+            BL = m_finderPatterns[k];
+            centerY = m_finderPatterns[k].externalRect.center.y;
+        }
+    }
+    
+    m_BLFinderPattern.setCVMat(m_frameThreshold);
+    m_BLFinderPattern.initWithRotatedRect(BL.externalRect);
+    m_BLFinderPattern.correctPoints();
+}
+
 bool QRCodeDetector::checkSize()
 {
     int variance = 3;
@@ -212,7 +277,7 @@ bool QRCodeDetector::checkSize()
 
 bool QRCodeDetector::checkRatio()
 {
-    int variance = m_finderPatterns[0].externalRect.size.width / 10;
+    int variance = m_finderPatterns[0].externalRect.size.width / 50;
     
     for (int k = 0; k < FINDER_PATTERNS; k++)
     {
@@ -284,113 +349,17 @@ void QRCodeDetector::fillQRMatrix()
 
 cv::Point2f QRCodeDetector::getULBasisPoint()
 {
-    cv::Point2f ULPoint;
-    for (int k = 0; k < FINDER_PATTERNS; k++)
-    {
-        cv::Point2f rect_points[4];
-        m_finderPatterns[k].externalRect.points(rect_points);
-        for (int i = 0; i < 4; i++)
-        {
-            if (ULPoint.x == 0 && ULPoint.y == 0)
-            {
-                ULPoint = rect_points[i];
-            }
-            if ((rect_points[i].x + rect_points[i].y) < (ULPoint.x + ULPoint.y))
-            {
-                ULPoint = rect_points[i];
-            }
-        }
-    }
-    showPoint(ULPoint);
-    return ULPoint;
-}
-
-void QRCodeDetector::correctULBasisPoint()
-{
-    int x = m_ULBasisPoint.x;
-    int y = m_ULBasisPoint.y;
-    
-    int searchRange = 5;
-    
-    for (int i = 1; i < searchRange; i++)
-    {
-        for (int j = 0; j < i + 1; j++)
-        {
-            if (m_frameThreshold.at<uchar>(y + i - j, x + j) == BLACK_PIXEL)
-            {
-                m_ULBasisPoint.x = x + j;
-                m_ULBasisPoint.y = y + i - j;
-                return;
-            }
-        }
-    }
+    return m_ULFinderPattern.getULPoint();
 }
 
 cv::Point2f QRCodeDetector::getURBasisPoint()
 {
-    cv::Point2f URPoint;
-    for (int k = 0; k < FINDER_PATTERNS; k++)
-    {
-        cv::Point2f rect_points[4];
-        m_finderPatterns[k].externalRect.points(rect_points);
-        for (int i = 0; i < 4; i++)
-        {
-            if (URPoint.x == 0 && URPoint.y == 0)
-            {
-                URPoint = rect_points[i];
-            }
-            if ((rect_points[i].x - rect_points[i].y) > (URPoint.x - URPoint.y))
-            {
-                URPoint = rect_points[i];
-            }
-        }
-    }
-    showPoint(URPoint);
-    return URPoint;
-}
-
-void QRCodeDetector::correctURBasisPoint()
-{
-    int x = m_URBasisPoint.x;
-    int y = m_URBasisPoint.y;
-    
-    int searchRange = 5;
-    
-    for (int i = 1; i < searchRange; i++)
-    {
-        for (int j = 0; j < i + 1; j++)
-        {
-            if (m_frameThreshold.at<uchar>(y + i - j, x -j) == BLACK_PIXEL)
-            {
-                m_URBasisPoint.x = x - j;
-                m_URBasisPoint.y = y + i - j;
-                return;
-            }
-        }
-    }
+    return m_URFinderPattern.getURPoint();
 }
 
 cv::Point2f QRCodeDetector::getBLBasisPoint()
 {
-    cv::Point2f BLPoint;
-    for (int k = 0; k < FINDER_PATTERNS; k++)
-    {
-        cv::Point2f rect_points[4];
-        m_finderPatterns[k].externalRect.points(rect_points);
-        for (int i = 0; i < 4; i++)
-        {
-            if (BLPoint.x == 0 && BLPoint.y == 0)
-            {
-                BLPoint = rect_points[i];
-            }
-            if ((rect_points[i].y - rect_points[i].x) > (BLPoint.y - BLPoint.x))
-            {
-                BLPoint = rect_points[i];
-            }
-        }
-    }
-    showPoint(BLPoint);
-    return BLPoint;
+    return m_BLFinderPattern.getBLPoint();
 }
 
 bool QRCodeDetector::rectsAtTheSameCenter(cv::RotatedRect& firstRect,
@@ -452,6 +421,24 @@ void QRCodeDetector::showFinderPatterns()
     }
 }
 
+void QRCodeDetector::showCorrectFinderPatterns()
+{
+    showPoint(m_ULFinderPattern.getULPoint(), cv::Scalar(255, 0, 0));
+    showPoint(m_ULFinderPattern.getURPoint(), cv::Scalar(255, 0, 0));
+    showPoint(m_ULFinderPattern.getBLPoint(), cv::Scalar(255, 0, 0));
+    showPoint(m_ULFinderPattern.getBRPoint(), cv::Scalar(255, 0, 0));
+    
+    showPoint(m_URFinderPattern.getULPoint(), cv::Scalar(0, 255, 0));
+    showPoint(m_URFinderPattern.getURPoint(), cv::Scalar(0, 255, 0));
+    showPoint(m_URFinderPattern.getBLPoint(), cv::Scalar(0, 255, 0));
+    showPoint(m_URFinderPattern.getBRPoint(), cv::Scalar(0, 255, 0));
+    
+    showPoint(m_BLFinderPattern.getULPoint(), cv::Scalar(0, 0, 255));
+    showPoint(m_BLFinderPattern.getURPoint(), cv::Scalar(0, 0, 255));
+    showPoint(m_BLFinderPattern.getBLPoint(), cv::Scalar(0, 0, 255));
+    showPoint(m_BLFinderPattern.getBRPoint(), cv::Scalar(0, 0, 255));
+}
+
 void QRCodeDetector::showRotatedRect(cv::RotatedRect rotatedRect, cv::Scalar color)
 {
     cv::Point2f rect_points[4];
@@ -459,19 +446,16 @@ void QRCodeDetector::showRotatedRect(cv::RotatedRect rotatedRect, cv::Scalar col
     for( int j = 0; j < 4; j++ ) {
         cv::line(m_frameOriginal, rect_points[j], rect_points[(j+1)%4], color);
     }
-    
-    //showPoint(rect_points[0]);
 }
 
-void QRCodeDetector::showPoint(cv::Point2f point)
+void QRCodeDetector::showPoint(cv::Point2f point, cv::Scalar color)
 {
-    
     int rectPointX = point.x;
     int rectPointY = point.y;
     
-    m_frameOriginal.at<cv::Vec4b>(rectPointY, rectPointX)[0] = 255;
-    m_frameOriginal.at<cv::Vec4b>(rectPointY, rectPointX)[1] = 255;
-    m_frameOriginal.at<cv::Vec4b>(rectPointY, rectPointX)[2] = 255;
+    m_frameOriginal.at<cv::Vec4b>(rectPointY, rectPointX)[0] = color[0];
+    m_frameOriginal.at<cv::Vec4b>(rectPointY, rectPointX)[1] = color[1];
+    m_frameOriginal.at<cv::Vec4b>(rectPointY, rectPointX)[2] = color[2];
 }
 
 void QRCodeDetector::showGrid()
@@ -481,7 +465,8 @@ void QRCodeDetector::showGrid()
         for (int j = 0; j < m_QRMatrixHeight + 1; j++)
         {
             showPoint(cv::Point2f(m_ULBasisPoint.x + i * m_gridStep,
-                                  m_ULBasisPoint.y + j * m_gridStep));
+                                  m_ULBasisPoint.y + j * m_gridStep),
+                      cv::Scalar(255, 255, 255));
         }
     }
 }
