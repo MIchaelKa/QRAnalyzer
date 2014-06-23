@@ -112,12 +112,6 @@ bool QRCodeDetector::identifyFinderPatterns(cv::Mat& mat)
         return false;
     }
     
-    if (!checkSize())
-    {
-        printf("NO finderPatterns SIZE\n");
-        return false;
-    }
-    
     //showFinderPatterns();
     
     m_ULBasisPoint = getULBasisPoint();
@@ -130,15 +124,19 @@ bool QRCodeDetector::identifyFinderPatterns(cv::Mat& mat)
         return false;
     }
     
-    printf("%d - %d - %d - %d\n", m_ULFinderPattern.getStep(),
-                                  m_URFinderPattern.getStep(),
-                                  m_BLFinderPattern.getStep(),
-                                  m_gridStep);
+    calculateQRMatrixSize((m_BLBasisPoint.y - m_ULBasisPoint.y) / m_gridStep);
     
-    //m_gridStep = m_ULFinderPattern.getStep();
+    if (m_QRMatrixSize == -1)
+    {
+        printf("INCORRECT MATRIX SIZE\n");
+        return false;
+    }
     
-    m_QRMatrixHeight = (m_BLBasisPoint.y - m_ULBasisPoint.y) / m_gridStep;
-    m_QRMatrixWidth  = (m_URBasisPoint.x - m_ULBasisPoint.x) / m_gridStep;
+    if (!checkQRCodeRatio())
+    {
+        printf("INCORRECT QR CODE RATIO\n");
+        return false;
+    }
     
     showGrid();
     showCorrectFinderPatterns();
@@ -146,9 +144,11 @@ bool QRCodeDetector::identifyFinderPatterns(cv::Mat& mat)
     fillQRMatrix();
     printQRMatrix();
     
-    printf("%d, %d\n", m_QRMatrixHeight, m_QRMatrixWidth);
+    printf("%d\n", m_QRMatrixSize);
     return true;
 }
+
+#pragma mark QRCodeDetector - Finder pattern adding
 
 bool QRCodeDetector::addToFinderPattern(FinderPattern& finderPattern,
                                         cv::RotatedRect& rect)
@@ -183,6 +183,8 @@ void QRCodeDetector::addNewFinderPatternRect(cv::RotatedRect& rect)
     }
     m_finderPatternRects.push_back(rect);
 }
+
+#pragma mark QRCodeDetector - Checkers and correction methods
 
 void QRCodeDetector::correctFinderPatterns()
 {
@@ -244,39 +246,10 @@ void QRCodeDetector::correctFinderPatterns()
     m_BLFinderPattern.correctPoints();
 }
 
-bool QRCodeDetector::checkSize()
-{
-    int variance = 3;
-    
-    int firstRectWidth = m_finderPatterns[0].externalRect.size.width;
-    int secondRectWidth = m_finderPatterns[1].externalRect.size.width;
-    int thirdRectWidth = m_finderPatterns[2].externalRect.size.width;
-    
-    if (abs(firstRectWidth  - secondRectWidth) > variance ||
-        abs(firstRectWidth  - thirdRectWidth)  > variance ||
-        abs(secondRectWidth - thirdRectWidth)  > variance)
-    {
-        return false;
-    }
-    
-    int firstRectHeight  = m_finderPatterns[0].externalRect.size.height;
-    int secondRectHeight = m_finderPatterns[1].externalRect.size.height;
-    int thirdRectHeight  = m_finderPatterns[2].externalRect.size.height;
-    
-    if (abs(firstRectHeight  - secondRectHeight) > variance ||
-        abs(firstRectHeight  - secondRectHeight) > variance ||
-        abs(secondRectHeight - thirdRectHeight)  > variance)
-    {
-        return false;
-    }
-    
-    return true;
-    
-}
-
 bool QRCodeDetector::checkRatio()
 {
     int variance = m_finderPatterns[0].externalRect.size.width / 50;
+    printf("RATIO VARIANCE - %d\n", variance);
     
     for (int k = 0; k < FINDER_PATTERNS; k++)
     {
@@ -307,7 +280,7 @@ bool QRCodeDetector::checkRatio()
 
 bool QRCodeDetector::checkBasisPoints()
 {
-    int variance = 1;
+    int variance = 3;
     
     if (abs(m_ULBasisPoint.y - m_URBasisPoint.y) > variance ||
         abs(m_ULBasisPoint.x - m_BLBasisPoint.x) > variance)
@@ -318,18 +291,76 @@ bool QRCodeDetector::checkBasisPoints()
     return true;
 }
 
-void QRCodeDetector::fillQRMatrix()
+void QRCodeDetector::calculateQRMatrixSize(int tempSize)
 {
-    m_QRMatrix = new int* [m_QRMatrixHeight];
+    int variance = 2;
     
-    for (int i = 0; i < m_QRMatrixHeight; i++)
+    if (abs(tempSize - QR_SIZE_VERSION_1) < variance)
     {
-        m_QRMatrix[i] = new int [m_QRMatrixWidth];
+        m_QRMatrixSize = QR_SIZE_VERSION_1;
+        return;
+    }
+    if (abs(tempSize - QR_SIZE_VERSION_2) < variance)
+    {
+        m_QRMatrixSize = QR_SIZE_VERSION_2;
+        return;
+    }
+    if (abs(tempSize - QR_SIZE_VERSION_3) < variance)
+    {
+        m_QRMatrixSize = QR_SIZE_VERSION_3;
+        return;
+    }
+    if (abs(tempSize - QR_SIZE_VERSION_4) < variance)
+    {
+        m_QRMatrixSize = QR_SIZE_VERSION_4;
+        return;
+    }
+    m_QRMatrixSize = -1;
+}
+
+bool QRCodeDetector::checkQRCodeRatio()
+{
+    int variance = 1;
+    
+    int codeWidth  = m_URBasisPoint.x - m_ULBasisPoint.x;
+    int codeHeight = m_BLBasisPoint.y - m_ULBasisPoint.y;
+    
+    printf("W: %d, H: %d\n", codeWidth, codeHeight);
+    
+    if (abs(codeWidth - codeHeight) > variance)
+    {
+        return false;
     }
     
-    for (int i = 0; i < m_QRMatrixHeight; i++)
+    m_gridStep = codeWidth / m_QRMatrixSize;
+    
+    printf("STEP: %d\n", m_gridStep);
+    
+    if (codeWidth % m_gridStep != 0)
     {
-        for (int j = 0; j < m_QRMatrixWidth; j++)
+        return false;
+    }
+    
+    if (codeWidth / m_gridStep != m_QRMatrixSize)
+    {
+        return false;
+    }
+    
+    return true;
+}
+
+void QRCodeDetector::fillQRMatrix()
+{
+    m_QRMatrix = new int* [m_QRMatrixSize];
+    
+    for (int i = 0; i < m_QRMatrixSize; i++)
+    {
+        m_QRMatrix[i] = new int [m_QRMatrixSize];
+    }
+    
+    for (int i = 0; i < m_QRMatrixSize; i++)
+    {
+        for (int j = 0; j < m_QRMatrixSize; j++)
         {
             if (m_frameThreshold.at<uchar>(m_ULBasisPoint.y + i * m_gridStep + m_gridStep/2,
                                            m_ULBasisPoint.x + j * m_gridStep + m_gridStep/2)
@@ -346,6 +377,8 @@ void QRCodeDetector::fillQRMatrix()
     
 }
 
+#pragma mark QRCodeDetector - Basis point methods
+
 cv::Point2f QRCodeDetector::getULBasisPoint()
 {
     return m_ULFinderPattern.getULPoint();
@@ -360,6 +393,8 @@ cv::Point2f QRCodeDetector::getBLBasisPoint()
 {
     return m_BLFinderPattern.getBLPoint();
 }
+
+#pragma mark QRCodeDetector - Rotated rect methods
 
 bool QRCodeDetector::rectsAtTheSameCenter(cv::RotatedRect& firstRect,
                                           cv::RotatedRect& secondRect)
@@ -404,6 +439,8 @@ bool QRCodeDetector::rectIsContainInnerRect(cv::RotatedRect& externalRect,
     }
     return false;
 }
+
+#pragma mark QRCodeDetector - Show debug info
 
 void QRCodeDetector::showFinderPatterns()
 {
@@ -459,9 +496,9 @@ void QRCodeDetector::showPoint(cv::Point2f point, cv::Scalar color)
 
 void QRCodeDetector::showGrid()
 {
-    for (int i = 0; i < m_QRMatrixWidth + 1; i++)
+    for (int i = 0; i < m_QRMatrixSize + 1; i++)
     {
-        for (int j = 0; j < m_QRMatrixHeight + 1; j++)
+        for (int j = 0; j < m_QRMatrixSize + 1; j++)
         {
             showPoint(cv::Point2f(m_ULBasisPoint.x + i * m_gridStep,
                                   m_ULBasisPoint.y + j * m_gridStep),
@@ -472,9 +509,9 @@ void QRCodeDetector::showGrid()
 
 void QRCodeDetector::printQRMatrix()
 {
-    for (int i = 0; i < m_QRMatrixHeight; i++)
+    for (int i = 0; i < m_QRMatrixSize; i++)
     {
-        for (int j = 0; j < m_QRMatrixWidth; j++)
+        for (int j = 0; j < m_QRMatrixSize; j++)
         {
             printf("%d ", m_QRMatrix[i][j]);
         }

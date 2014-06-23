@@ -35,6 +35,8 @@ private:
     bool checkRatio();
     bool checkSize();
     bool checkBasisPoints();
+    void calculateQRMatrixSize(int tempSize);
+    bool checkQRCodeRatio();
     void fillQRMatrix();
     
     // to FinderPatternRect
@@ -76,8 +78,7 @@ private:
     
     int m_gridStep;
 
-    int   m_QRMatrixHeight;
-    int   m_QRMatrixWidth;
+    int   m_QRMatrixSize;
     int** m_QRMatrix;
     
 };

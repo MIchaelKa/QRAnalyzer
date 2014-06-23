@@ -35,4 +35,12 @@ struct FinderPattern
     cv::RotatedRect innerRect;
 };
 
+enum QRVersionSize
+{
+    QR_SIZE_VERSION_1 = 21,
+    QR_SIZE_VERSION_2 = 25,
+    QR_SIZE_VERSION_3 = 29,
+    QR_SIZE_VERSION_4 = 33,
+};
+
 #endif
