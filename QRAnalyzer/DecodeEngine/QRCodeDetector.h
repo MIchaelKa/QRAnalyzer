@@ -31,12 +31,14 @@ private:
                             cv::RotatedRect& rect);
     void addNewFinderPatternRect(cv::RotatedRect& rect);
     
+    // checkers and correction methods
+    void deskewQRCanvas();
+    void alignQRCodeRatio();
     void correctFinderPatterns();
     bool checkRatio();
     bool checkSize();
     bool checkBasisPoints();
     void calculateQRMatrixSize(int tempSize);
-    bool checkQRCodeRatio();
     void fillQRMatrix();
     
     // to FinderPatternRect
@@ -52,6 +54,9 @@ private:
     cv::Point2f getURBasisPoint();    
     cv::Point2f getBLBasisPoint();
     
+    int m_QRCanvasWidth;
+    int m_QRCanvasHeight;
+    
     // debug methods
     void showFinderPatterns();
     void showCorrectFinderPatterns();
@@ -64,6 +69,7 @@ private:
     // variables
     cv::Mat m_frameOriginal;
     cv::Mat m_frameThreshold;
+    cv::Mat m_frameAligned;
     
     vector<cv::RotatedRect> m_finderPatternRects;
     vector<FinderPattern>   m_finderPatterns;
@@ -76,7 +82,8 @@ private:
     CorrectFinderPattern m_URFinderPattern;
     CorrectFinderPattern m_BLFinderPattern;
     
-    int m_gridStep;
+    int m_gridWidthStep;
+    int m_gridHeightStep;
 
     int   m_QRMatrixSize;
     int** m_QRMatrix;

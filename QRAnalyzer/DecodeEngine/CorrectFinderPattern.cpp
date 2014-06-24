@@ -56,6 +56,16 @@ void CorrectFinderPattern::correctPoints()
     m_step = round(m_URPoint.x - m_ULPoint.x) / EXTERNAL_RECT_RATIO;
 }
 
+int CorrectFinderPattern::getWidth()
+{
+    return m_URPoint.x - m_ULPoint.x;
+}
+
+int CorrectFinderPattern::getHeight()
+{
+    return m_BRPoint.y - m_ULPoint.y;
+}
+
 void CorrectFinderPattern::correctULPoint()
 {
     int x = m_ULPoint.x;

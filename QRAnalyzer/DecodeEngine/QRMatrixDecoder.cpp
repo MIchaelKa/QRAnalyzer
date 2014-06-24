@@ -12,3 +12,9 @@ QRMatrixDecoder::QRMatrixDecoder()
 {
     
 }
+
+void QRMatrixDecoder::setQRMatrix(int** matrix, int size)
+{
+    m_QRMatrixSize = size;
+    m_QRMatrix     = matrix;
+}

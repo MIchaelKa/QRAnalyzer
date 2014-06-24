@@ -20,6 +20,9 @@ public:
     void setCVMat(cv::Mat mat);
     void correctPoints();
     
+    int getWidth();
+    int getHeight();
+    
     cv::Point2f getULPoint();
     cv::Point2f getURPoint();
     cv::Point2f getBLPoint();

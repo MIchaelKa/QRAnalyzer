@@ -14,6 +14,13 @@ class QRMatrixDecoder
 public:
     QRMatrixDecoder();
     
+    void setQRMatrix(int** matrix, int size);
+    
+private:
+    
+    int   m_QRMatrixSize;
+    int** m_QRMatrix;
+    
 };
 
 #endif /* defined(__QRAnalyzer__QRMatrixDecoder__) */
