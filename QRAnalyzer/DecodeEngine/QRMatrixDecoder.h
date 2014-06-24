@@ -10,6 +10,7 @@
 #define __QRAnalyzer__QRMatrixDecoder__
 
 #include "DecodeEngineDefines.h"
+#include "QRCodeMasks.h"
 
 class QRMatrixDecoder
 {
@@ -20,7 +21,11 @@ public:
     void decodeQRMatrix();
     
 private:
+    // Read QR data
     void readSystemInfo();
+    
+    // Utility methods
+    int  applyMask(int x, int y);
     
     // System Info
     uchar m_errorLevel;

@@ -13,6 +13,8 @@ QRMatrixDecoder::QRMatrixDecoder()
     
 }
 
+#pragma mark QRMatrixDecoder - Base API
+
 void QRMatrixDecoder::setQRMatrix(int** matrix, int size)
 {
     m_QRMatrixSize = size;
@@ -23,6 +25,8 @@ void QRMatrixDecoder::decodeQRMatrix()
 {
     readSystemInfo();
 }
+
+#pragma mark QRMatrixDecoder - Read QR data
 
 void QRMatrixDecoder::readSystemInfo()
 {
@@ -42,4 +46,49 @@ void QRMatrixDecoder::readSystemInfo()
     
     printf("ERR LEVEL: %d\n", m_errorLevel);
     printf("CODE MASK: %d\n", m_codeMask);
+}
+
+#pragma mark QRMatrixDecoder - Utility methods
+
+int QRMatrixDecoder::applyMask(int x, int y)
+{
+    switch (m_codeMask)
+    {
+        case 0:
+        {
+            return MASK_0(x, y);
+        }
+        case 1:
+        {
+            return MASK_1(x, y);
+        }
+        case 2:
+        {
+            return MASK_2(x, y);
+        }
+        case 3:
+        {
+            return MASK_3(x, y);
+        }
+        case 4:
+        {
+            return MASK_4(x, y);
+        }
+        case 5:
+        {
+            return MASK_5(x, y);
+        }
+        case 6:
+        {
+            return MASK_6(x, y);
+        }
+        case 7:
+        {
+            return MASK_7(x, y);
+        }
+        default:
+        {
+            return -1;
+        }
+    }
 }

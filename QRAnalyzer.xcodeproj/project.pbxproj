@@ -68,6 +68,7 @@
 		4C9BEA01195380F200656694 /* DecodeEngineDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecodeEngineDefines.h; sourceTree = "<group>"; };
 		4C9BEA021954D87200656694 /* QRMatrixDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QRMatrixDecoder.cpp; sourceTree = "<group>"; };
 		4C9BEA031954D87200656694 /* QRMatrixDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRMatrixDecoder.h; sourceTree = "<group>"; };
+		4C9BEA16195A310C00656694 /* QRCodeMasks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QRCodeMasks.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				4C9BEA01195380F200656694 /* DecodeEngineDefines.h */,
+				4C9BEA16195A310C00656694 /* QRCodeMasks.h */,
 				4C7C8DE819465B0A0011E542 /* RawVideoFrame.h */,
 				4C7C8DE719465B0A0011E542 /* RawVideoFrame.cpp */,
 				4C9BE9FF19537B4700656694 /* CorrectFinderPattern.h */,
