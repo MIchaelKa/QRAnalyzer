@@ -43,4 +43,18 @@ enum QRVersionSize
     QR_SIZE_VERSION_4 = 33,
 };
 
+enum QRElementSystemInfo
+{
+    // Index
+    SYSTEM_INFO_INDEX            = 8,
+    // Lengthes
+    SYSTEM_INFO_ERR_LEVEL        = 2,
+    SYSTEM_INFO_CODE_MASK        = 3,
+    SYSTEM_INFO_LENGTH           = 5,
+    // Masks
+    SYSTEM_INFO_MASK             = 0x15, // 00010101
+    SYSTEM_INFO_ERR_MASK         = 0x18, // 00011000
+    SYSTEM_INFO_CODE_MASK_MASK   = 0x07, // 00000111
+};
+
 #endif

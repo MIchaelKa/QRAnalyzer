@@ -11,6 +11,7 @@
 
 #include "CorrectFinderPattern.h"
 #include "DecodeEngineDefines.h"
+#include "QRMatrixDecoder.h"
 
 using namespace std;
 
@@ -88,6 +89,7 @@ private:
     int   m_QRMatrixSize;
     int** m_QRMatrix;
     
+    QRMatrixDecoder* m_QRMatrixDecoder;
 };
 
 #endif /* defined(__QRAnalyzer__QRCodeDetector__) */

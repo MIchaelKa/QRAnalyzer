@@ -12,6 +12,7 @@
 
 QRCodeDetector::QRCodeDetector()
 {
+    m_QRMatrixDecoder = new QRMatrixDecoder();
     m_gridWidthStep  = 0;
     m_gridHeightStep = 0;
 }
@@ -31,6 +32,8 @@ bool QRCodeDetector::detectQRCode(cv::Mat& frame)
     if (identifyFinderPatterns(m_frameThreshold))
     {
         frame = m_frameAligned;
+        m_QRMatrixDecoder->setQRMatrix(m_QRMatrix, m_QRMatrixSize);
+        m_QRMatrixDecoder->decodeQRMatrix();
         return true;
     }
     return false;
