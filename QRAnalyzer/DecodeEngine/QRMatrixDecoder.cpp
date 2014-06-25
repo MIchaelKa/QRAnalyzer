@@ -25,13 +25,14 @@ void QRMatrixDecoder::decodeQRMatrix()
 {
     readSystemInfo();
     
-//    m_codeMask = 3;
-//    m_QRMatrix[m_QRMatrixSize - 1][m_QRMatrixSize - 1] = 0;
-//    m_QRMatrix[m_QRMatrixSize - 1][m_QRMatrixSize - 2] = 1;
-//    m_QRMatrix[m_QRMatrixSize - 2][m_QRMatrixSize - 1] = 1;
-//    m_QRMatrix[m_QRMatrixSize - 2][m_QRMatrixSize - 2] = 1;
+    m_codeMask = 3;
+    m_QRMatrix[m_QRMatrixSize - 1][m_QRMatrixSize - 1] = 0;
+    m_QRMatrix[m_QRMatrixSize - 1][m_QRMatrixSize - 2] = 1;
+    m_QRMatrix[m_QRMatrixSize - 2][m_QRMatrixSize - 1] = 1;
+    m_QRMatrix[m_QRMatrixSize - 2][m_QRMatrixSize - 2] = 1;
     
     readHeader();
+    readPacketNumber();
 }
 
 #pragma mark QRMatrixDecoder - Read QR data
@@ -60,22 +61,65 @@ void QRMatrixDecoder::readHeader()
 {
     uchar mode = 0;
     
-    for (int i = 0; i < HEADER_LENGTH / 2; i++)
-    {
-        int readRowIndex = m_QRMatrixSize - 1 - i;
-        int readCollIndex = m_QRMatrixSize - 1;
-        mode |= applyMask(m_QRMatrix[readRowIndex][readCollIndex] << (HEADER_LENGTH - (i * 2 + 1)),
-                          readRowIndex,
-                          readCollIndex);
-        
-        readCollIndex = m_QRMatrixSize - 2;
-        mode |= applyMask(m_QRMatrix[readRowIndex][readCollIndex] << (HEADER_LENGTH - (i * 2 + 2)),
-                          readRowIndex,
-                          readCollIndex);
-    }
+    readBlock(m_QRMatrixSize - 1,
+              m_QRMatrixSize - 1,
+              HEADER_LENGTH,
+              mode,
+              DOWN_UP);
     
-    m_QRCodeMode = mode;
+    m_QRCodeMode  = mode;
+    m_blockLength = getBlockLength(m_QRCodeMode);
+    
     printf("QR MODE: %d\n", mode);
+    printf("Block Length: %d\n", m_blockLength);
+}
+
+void QRMatrixDecoder::readPacketNumber()
+{
+    uchar number = 0;
+    
+    readBlock(m_QRMatrixSize - 1 - (HEADER_LENGTH / 2),
+              m_QRMatrixSize - 1,
+              m_blockLength,
+              number,
+              DOWN_UP);
+    
+    m_packetNumber = number;
+    printf("Packet Number: %d\n", number);
+}
+
+void QRMatrixDecoder::readBlock(int startRowIndex,
+                                int startColIndex,
+                                int blockLength,
+                                uchar& destination,
+                                ReadingDirection direction)
+{
+    uchar block = 0;
+    
+    for (int i = 0; i < blockLength / 2; i++)
+    {
+        int readRowIndex;
+        
+        if (direction == DOWN_UP)
+        {
+            readRowIndex = startRowIndex - i;
+        }
+        else
+        {
+            readRowIndex = startRowIndex + i;
+        }
+        
+        int readColIndex = startColIndex;
+        block |= applyMask(m_QRMatrix[readRowIndex][readColIndex],
+                           readRowIndex,
+                           readColIndex) << (blockLength - (i * 2 + 1));
+        
+        readColIndex = startColIndex - 1;
+        block |= applyMask(m_QRMatrix[readRowIndex][readColIndex],
+                           readRowIndex,
+                           readColIndex) << (blockLength - (i * 2 + 2));
+    }
+    destination = block;
 }
 
 #pragma mark QRMatrixDecoder - Utility methods
@@ -133,4 +177,27 @@ int QRMatrixDecoder::getMask(int x, int y)
             return -1;
         }
     }
+}
+
+int QRMatrixDecoder::getBlockLength(int mode)
+{
+    switch (mode)
+    {
+        case QR_MODE_NUMERIC:
+        {
+            return BLOCK_LENGTH_NUMERIC;
+        }
+        case QR_MODE_ALPHANUMERIC:
+        {
+            return BLOCK_LENGTH_ALPHANUMERIC;
+        }
+        case QR_MODE_BYTE:
+        {
+            return BLOCK_LENGTH_BYTE ;
+        }
+        default:
+        {
+            return -1;
+        }
+    }    
 }

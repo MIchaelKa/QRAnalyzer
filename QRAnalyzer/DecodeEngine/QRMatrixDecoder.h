@@ -24,10 +24,22 @@ private:
     // Read QR data
     void readSystemInfo();
     void readHeader();
+    void readPacketNumber();
+    
+    void readBlock(int startRowIndex,
+                   int startColIndex,
+                   int blockLength,
+                   uchar& destination,
+                   ReadingDirection direction);
     
     // Utility methods
     uchar applyMask(uchar value, int x, int y);
     int   getMask(int x, int y);
+    int   getBlockLength(int mode);
+    
+    // Variables
+    uchar m_packetNumber;
+    uchar m_blockLength;
     
     // System Info
     uchar m_errorLevel;

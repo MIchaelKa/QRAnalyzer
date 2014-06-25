@@ -10,7 +10,7 @@
 #define QRAnalyzer_QRCodeMasks_h
 
 
-// x - coll, y - row
+// x - col, y - row
 
 #define MASK_0(x,y) ((x) + (y)) % 2
 #define MASK_1(x,y) (y) % 2

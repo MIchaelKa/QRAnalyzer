@@ -77,4 +77,10 @@ enum QRElementHeader
     HEADER_LENGTH = 4,
 };
 
+enum ReadingDirection
+{
+    UD_DOWN,
+    DOWN_UP
+};
+
 #endif
