@@ -21,4 +21,9 @@
 #define MASK_6(x,y) (((x) * (y)) % 2 + ((x) * (y)) % 3) % 2
 #define MASK_7(x,y) (((x) * (y)) % 3 + ((x) + (y)) % 2) % 2
 
+enum
+{
+    AFTER_INVERT_MASK = 0x1 // 0000 0001
+};
+
 #endif

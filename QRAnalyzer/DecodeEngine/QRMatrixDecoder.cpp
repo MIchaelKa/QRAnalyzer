@@ -24,6 +24,14 @@ void QRMatrixDecoder::setQRMatrix(int** matrix, int size)
 void QRMatrixDecoder::decodeQRMatrix()
 {
     readSystemInfo();
+    
+//    m_codeMask = 3;
+//    m_QRMatrix[m_QRMatrixSize - 1][m_QRMatrixSize - 1] = 0;
+//    m_QRMatrix[m_QRMatrixSize - 1][m_QRMatrixSize - 2] = 1;
+//    m_QRMatrix[m_QRMatrixSize - 2][m_QRMatrixSize - 1] = 1;
+//    m_QRMatrix[m_QRMatrixSize - 2][m_QRMatrixSize - 2] = 1;
+    
+    readHeader();
 }
 
 #pragma mark QRMatrixDecoder - Read QR data
@@ -48,9 +56,43 @@ void QRMatrixDecoder::readSystemInfo()
     printf("CODE MASK: %d\n", m_codeMask);
 }
 
+void QRMatrixDecoder::readHeader()
+{
+    uchar mode = 0;
+    
+    for (int i = 0; i < HEADER_LENGTH / 2; i++)
+    {
+        int readRowIndex = m_QRMatrixSize - 1 - i;
+        int readCollIndex = m_QRMatrixSize - 1;
+        mode |= applyMask(m_QRMatrix[readRowIndex][readCollIndex] << (HEADER_LENGTH - (i * 2 + 1)),
+                          readRowIndex,
+                          readCollIndex);
+        
+        readCollIndex = m_QRMatrixSize - 2;
+        mode |= applyMask(m_QRMatrix[readRowIndex][readCollIndex] << (HEADER_LENGTH - (i * 2 + 2)),
+                          readRowIndex,
+                          readCollIndex);
+    }
+    
+    m_QRCodeMode = mode;
+    printf("QR MODE: %d\n", mode);
+}
+
 #pragma mark QRMatrixDecoder - Utility methods
 
-int QRMatrixDecoder::applyMask(int x, int y)
+uchar QRMatrixDecoder::applyMask(uchar value, int x, int y)
+{
+    if (getMask(x, y) == 0)
+    {
+        return (~value) & AFTER_INVERT_MASK;
+    }
+    else
+    {
+        return value;
+    }
+}
+
+int QRMatrixDecoder::getMask(int x, int y)
 {
     switch (m_codeMask)
     {

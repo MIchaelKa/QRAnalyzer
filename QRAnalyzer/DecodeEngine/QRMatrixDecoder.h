@@ -23,18 +23,24 @@ public:
 private:
     // Read QR data
     void readSystemInfo();
+    void readHeader();
     
     // Utility methods
-    int  applyMask(int x, int y);
+    uchar applyMask(uchar value, int x, int y);
+    int   getMask(int x, int y);
     
     // System Info
     uchar m_errorLevel;
     uchar m_codeMask;
     
+    // Header info
+    uchar m_QRCodeMode;
+    
     // QR Code Matrix
     int   m_QRMatrixSize;
     int** m_QRMatrix;
     
+    uchar m_testValue;
 };
 
 #endif /* defined(__QRAnalyzer__QRMatrixDecoder__) */

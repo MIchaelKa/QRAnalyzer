@@ -57,4 +57,24 @@ enum QRElementSystemInfo
     SYSTEM_INFO_CODE_MASK_MASK   = 0x07, // 00000111
 };
 
+enum QRModes
+{
+    QR_MODE_ECI          = 0x7, // 0111
+    QR_MODE_NUMERIC      = 0x1, // 0001
+    QR_MODE_ALPHANUMERIC = 0x2, // 0010
+    QR_MODE_BYTE         = 0x4, // 0100
+};
+
+enum QRBlockLength
+{
+    BLOCK_LENGTH_NUMERIC      = 10,
+    BLOCK_LENGTH_ALPHANUMERIC = 9,
+    BLOCK_LENGTH_BYTE         = 8,
+};
+
+enum QRElementHeader
+{
+    HEADER_LENGTH = 4,
+};
+
 #endif
