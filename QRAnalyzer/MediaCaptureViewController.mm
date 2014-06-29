@@ -21,6 +21,7 @@ typedef unsigned char RAW_COLOR;
 @interface MediaCaptureViewController () <AVCaptureVideoDataOutputSampleBufferDelegate>
 {
     QRCodeDetector* codeDetector;
+    char*           result;
 }
 
 // Session management.
@@ -46,6 +47,7 @@ typedef unsigned char RAW_COLOR;
         QRDecodeResultViewController* drvc = [nc viewControllers][0];
         drvc.delegate = self;
         [drvc updateResultView: self.resultImage];
+        [drvc updateResultLabel: [NSString stringWithFormat: @"Result: %s", result]];
     }
 }
 
@@ -140,6 +142,7 @@ typedef unsigned char RAW_COLOR;
         dispatch_sync(dispatch_get_main_queue(), ^{
             [self.captureSession stopRunning];
             self.resultImage = [UIImage fromCVMat: processFrame];
+            result = codeDetector->getResult();
             [self performSegueWithIdentifier: @"Decode result" sender: self];
         });
     }

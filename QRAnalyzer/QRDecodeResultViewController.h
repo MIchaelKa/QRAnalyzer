@@ -21,5 +21,6 @@
 - (IBAction)cancel: (id)sender;
 
 - (void) updateResultView: (UIImage *) image;
+- (void) updateResultLabel: (NSString *) result;
 
 @end

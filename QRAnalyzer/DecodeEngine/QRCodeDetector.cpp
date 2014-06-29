@@ -25,7 +25,14 @@ bool QRCodeDetector::detectQRCode(cv::Mat& frame)
     m_frameOriginal = frame;
     
     cv::cvtColor(frame, frameGrayScale, CV_BGR2GRAY);
-    cv::threshold(frameGrayScale, frameThreshold, 150, WHITE_PIXEL, CV_THRESH_BINARY);
+    cv::threshold(frameGrayScale, frameThreshold, 127, WHITE_PIXEL, CV_THRESH_BINARY);
+//    cv::adaptiveThreshold(frameGrayScale,
+//                          frameThreshold,
+//                          WHITE_PIXEL,
+//                          CV_ADAPTIVE_THRESH_MEAN_C,
+//                          CV_THRESH_BINARY,
+//                          11,
+//                          2);
     
     m_frameThreshold = frameThreshold;
     
@@ -34,6 +41,7 @@ bool QRCodeDetector::detectQRCode(cv::Mat& frame)
         frame = m_frameAligned;
         m_QRMatrixDecoder->setQRMatrix(m_QRMatrix, m_QRMatrixSize);
         m_QRMatrixDecoder->decodeQRMatrix();
+        m_result = m_QRMatrixDecoder->getResult();
         return true;
     }
     return false;
@@ -196,14 +204,14 @@ void QRCodeDetector::deskewQRCanvas()
     cv::Mat warp_mat( 2, 3, CV_32FC1 );
     
     // Set the dst image the same type and size as src
-    m_frameAligned = cv::Mat::zeros(m_QRCanvasHeight,
-                                    m_QRCanvasWidth,
+    m_frameAligned = cv::Mat::zeros(m_QRCanvasHeight + m_gridHeightStep * 3,
+                                    m_QRCanvasWidth + m_gridWidthStep * 3,
                                     m_frameThreshold.type());
     
     // Set your 3 points to calculate the  Affine Transform
     srcTri[0] = m_ULBasisPoint;
-    srcTri[1] = m_URBasisPoint;
-    srcTri[2] = m_BLBasisPoint;
+    srcTri[1] = cv::Point2f(m_URBasisPoint.x + m_gridWidthStep, m_URBasisPoint.y);
+    srcTri[2] = cv::Point2f(m_BLBasisPoint.x, m_BLBasisPoint.y + m_gridHeightStep);
     
     dstTri[0] = cv::Point2f(0, 0);
     dstTri[1] = cv::Point2f(m_QRCanvasWidth, 0);
@@ -392,25 +400,106 @@ void QRCodeDetector::fillQRMatrix()
         m_QRMatrix[i] = new int [m_QRMatrixSize];
     }
     
+    int currentRow = m_gridHeightStep / 2;
+    int currentCol = m_gridWidthStep  / 2;
+    
     for (int i = 0; i < m_QRMatrixSize; i++)
     {
+        currentCol = m_gridWidthStep / 2;
         for (int j = 0; j < m_QRMatrixSize; j++)
         {
-            if (m_frameAligned.at<uchar>(i * m_gridHeightStep + m_gridHeightStep / 2,
-                                         j * m_gridWidthStep  + m_gridWidthStep  / 2)
-                == BLACK_PIXEL)
+            alignCurrentPosition(currentRow, currentCol);
+            if (m_frameAligned.at<uchar>(currentRow, currentCol) == BLACK_PIXEL)
             {
                 m_QRMatrix[i][j] = 1;
-                m_frameAligned.at<uchar>(i * m_gridHeightStep + m_gridHeightStep / 2,
-                                         j * m_gridWidthStep  + m_gridWidthStep  / 2) = 255;
+                m_frameAligned.at<uchar>(currentRow, currentCol) = 255;
             }
             else
             {
                 m_QRMatrix[i][j] = 0;
+                //m_frameAligned.at<uchar>(currentRow, currentCol) = 0;
             }
-        }
+            currentCol += m_gridWidthStep;
+        }        
+        currentRow += m_gridHeightStep;
+    }
+}
+
+void QRCodeDetector::alignCurrentPosition(int& currentRow, int& currentCol)
+{
+    uchar currentValue = m_frameAligned.at<uchar>(currentRow, currentCol);
+    if (currentValue != BLACK_PIXEL && currentValue != WHITE_PIXEL)
+    {
+        return;
     }
     
+    int rightStep = currentCol + (m_gridWidthStep / 2);
+    int leftStep  = currentCol - (m_gridWidthStep / 2);
+    
+    int upStep    = currentRow - (m_gridHeightStep / 2);
+    int downStep  = currentRow + (m_gridHeightStep / 2);
+    
+    int border    = 0;
+    
+    // Left - Right jumps
+    if (leftStep < 0 || rightStep > m_QRCanvasWidth)
+    {
+        return;
+    }
+    if (m_frameAligned.at<uchar>(currentRow, leftStep) != BLACK_PIXEL &&
+        m_frameAligned.at<uchar>(currentRow, leftStep) != WHITE_PIXEL)
+    {
+        return;
+    }
+    if (m_frameAligned.at<uchar>(currentRow, rightStep) != currentValue)
+    {
+        border = rightStep;
+        while (m_frameAligned.at<uchar>(currentRow, border) != currentValue)
+        {
+            border--;
+        }
+        currentCol = border - m_gridWidthStep / 2;
+    }
+    else if (m_frameAligned.at<uchar>(currentRow, leftStep) != currentValue)
+    {
+        border = leftStep;
+        while (m_frameAligned.at<uchar>(currentRow, border) != currentValue)
+        {
+            border++;
+        }
+        currentCol = border + m_gridWidthStep / 2;
+    }
+    
+    // Up - Down jumps
+    if (upStep < 0 || downStep > m_QRCanvasHeight)
+    {
+        return;
+    }
+    if (m_frameAligned.at<uchar>(upStep, currentCol) != BLACK_PIXEL &&
+        m_frameAligned.at<uchar>(upStep, currentCol) != WHITE_PIXEL)
+    {
+        return;
+    }
+    if (m_frameAligned.at<uchar>(downStep, currentCol) != currentValue)
+    {
+        border = downStep;
+        while (m_frameAligned.at<uchar>(border, currentCol) != currentValue &&
+               border != currentRow)
+        {
+            border--;
+        }
+        if (border != currentRow)
+        currentRow = border - m_gridHeightStep / 2 + 1;
+    }
+    else if (m_frameAligned.at<uchar>(upStep, currentCol) != currentValue)
+    {
+        border = upStep;
+        while (m_frameAligned.at<uchar>(border, currentCol) != currentValue)
+        {
+            border++;
+        }
+        currentRow = border + m_gridHeightStep / 2 - 1;
+    }
 }
 
 #pragma mark QRCodeDetector - Basis point methods
@@ -553,4 +642,14 @@ void QRCodeDetector::printQRMatrix()
         }
         printf("\n");
     }
+}
+
+int QRCodeDetector::getNumericResult()
+{
+    return m_numericResult;
+}
+
+char* QRCodeDetector::getResult()
+{
+    return m_result;
 }

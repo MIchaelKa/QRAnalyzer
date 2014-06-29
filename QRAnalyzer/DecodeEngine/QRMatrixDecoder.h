@@ -20,25 +20,29 @@ public:
     void setQRMatrix(int** matrix, int size);
     void decodeQRMatrix();
     
+    // Get methods
+    int   getNumericResult();
+    char* getResult();
+    
 private:
     // Read QR data
+    void readNumericData();
+    void readByteData();
+    
     void readSystemInfo();
     void readHeader();
     void readPacketNumber();
     
-    void readBlock(int startRowIndex,
-                   int startColIndex,
-                   int blockLength,
-                   uchar& destination,
-                   ReadingDirection direction);
+    void readBlock(int  blockLength,
+                   int& destination);
     
     // Utility methods
     uchar applyMask(uchar value, int x, int y);
     int   getMask(int x, int y);
     int   getBlockLength(int mode);
-    
+
     // Variables
-    uchar m_packetNumber;
+    int m_packetNumber;
     uchar m_blockLength;
     
     // System Info
@@ -51,6 +55,13 @@ private:
     // QR Code Matrix
     int   m_QRMatrixSize;
     int** m_QRMatrix;
+    int   m_currentRowIndex;
+    int   m_currentColIndex;
+    ReadingDirection m_currentDirection;
+    
+    // Results;
+    int   m_numericResult;
+    char* m_result;
     
     uchar m_testValue;
 };

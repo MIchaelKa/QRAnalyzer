@@ -23,6 +23,8 @@ public:
     bool detectQRCode(cv::Mat& frame);
     void setMinimumCodeSize(int size);
     
+    int   getNumericResult();
+    char* getResult();
 private:
 
     // methods
@@ -41,6 +43,7 @@ private:
     bool checkBasisPoints();
     void calculateQRMatrixSize(int tempSize);
     void fillQRMatrix();
+    void alignCurrentPosition(int& currentRow, int& currentCol);
     
     // to FinderPatternRect
     bool rectIsContainInnerRect(cv::RotatedRect& externalRect,
@@ -90,6 +93,9 @@ private:
     int** m_QRMatrix;
     
     QRMatrixDecoder* m_QRMatrixDecoder;
+    
+    int   m_numericResult;
+    char* m_result;
 };
 
 #endif /* defined(__QRAnalyzer__QRCodeDetector__) */

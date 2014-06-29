@@ -68,7 +68,7 @@ enum QRModes
 enum QRBlockLength
 {
     BLOCK_LENGTH_NUMERIC      = 10,
-    BLOCK_LENGTH_ALPHANUMERIC = 9,
+    BLOCK_LENGTH_ALPHANUMERIC = 11,
     BLOCK_LENGTH_BYTE         = 8,
 };
 
@@ -79,7 +79,7 @@ enum QRElementHeader
 
 enum ReadingDirection
 {
-    UD_DOWN,
+    UP_DOWN,
     DOWN_UP
 };
 

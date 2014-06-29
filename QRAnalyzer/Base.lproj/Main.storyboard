@@ -50,6 +50,13 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iRv-J0-ImA">
+                                <rect key="frame" x="20" y="491" width="280" height="57"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -62,6 +69,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="resultLable" destination="iRv-J0-ImA" id="AdE-rc-Z0F"/>
                         <outlet property="testScrollView" destination="SSY-yV-HNF" id="EkS-Jk-1BF"/>
                     </connections>
                 </viewController>

@@ -12,6 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *testScrollView;
 @property (strong, nonatomic) UIImageView* imageView;
+@property (weak, nonatomic) IBOutlet UILabel *resultLable;
 
 @end
 
@@ -57,6 +58,14 @@
         
         [self.testScrollView addSubview: self.imageView];
     });
+}
+
+- (void) updateResultLabel: (NSString *) result
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.resultLable.text = result;
+    });
+    
 }
 
 - (UIImageView *) imageView
